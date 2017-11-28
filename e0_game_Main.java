@@ -1,17 +1,15 @@
-// #1 pause 버튼 구현
-
+// #2 pause버튼 이벤트
 package ex;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-
 
 
 public class e0_game_Main extends JFrame implements ActionListener{
@@ -24,7 +22,6 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	
 	
 	
-	
 	public e0_game_Main() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,22 +29,9 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		setSize(700,700);
 		
 		setLayout(null);
-		add(btn_pause);
+		makeButtonAndEventHandle();
 		setVisible(true);
 	}
-	public e0_game_Main(int x, int y) {
-		xSize = x;
-		ySize = y;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("네모네모 로직!");
-		setSize(700,700);
-		
-		setLayout(null);
-		add(btn_pause);
-		setVisible(true);
-	}
-	
 	
 	
 	
@@ -82,19 +66,30 @@ public class e0_game_Main extends JFrame implements ActionListener{
 				
 			}
 		}
+		
+		
 	}
 
 	
 	public void makeButtonAndEventHandle() {
+		add(btn_pause);
+		btn_pause.addActionListener(this);
 		
 	}
 
+	
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String strCmd = e.getActionCommand(); // 클릭된 버튼의 이름을 저장
+		Container pane = getContentPane();
 		
-		if (strCmd.equals("btn_pause")) {
-			btn_pause.setText("gg");
+		if (strCmd.equals("PAUSE")) {
+			btn_pause.setText("BACK");
+		}
+		if (strCmd.equals("BACK")) {
+			btn_pause.setText("PAUSE");
 			
 		}
 		
@@ -108,5 +103,3 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 	}
 }
-
-
