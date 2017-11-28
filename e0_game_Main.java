@@ -1,15 +1,20 @@
-// #5 격자를 로직에 맞게 수정.  사각형부분의 왼쪽위 시작점의 x좌표, y좌표 변수로 설정
+// #6 마우스 모션 리스너 연습
 
 package ex;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
@@ -28,6 +33,11 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	private JButton btn_pause_main=new JButton("MAIN");
 	
 	private boolean game_Pause = false;
+	private int board_start_x,board_start_y;
+	private int xboxSize, yboxSize;
+	
+	private JLabel lb = new JLabel("mouse Moved");
+	
 	
 	Image offScr;
 	Graphics offG;  
@@ -41,6 +51,10 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 		setLayout(null);
 		makeButtonAndEventHandle();
+
+		add(lb);
+		addMouseMotionListener(new MyMouseMotion());
+
 		setVisible(true);
 	}
 	
@@ -59,12 +73,14 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 		
 		
-		int xboxSize = (int)(clientWidth/1.7)/xSize;
-		int yboxSize = (int)(clientHeight/1.7)/ySize;
+		xboxSize = (int)(clientWidth/1.7)/xSize;
+		yboxSize = (int)(clientHeight/1.7)/ySize;
 		
 
 		btn_play_pause.setSize(clientWidth/5,clientHeight/10 );
 		btn_play_pause.setLocation(clientWidth/15,clientHeight/10);
+		
+
 		
 
 		//게임중 일시정지 화면 START
@@ -88,27 +104,13 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		pPause.setVisible(false);
 		// 게임중 일시정지화면 END
 		
-		// 격자 출력
-//		for (int i=0; i<xSize; i++) {       //x축 길이
-//			for(int j=0; j<ySize; j++) {   //y축 길이
-//				offG.setColor(Color.black);
-//				if((i+1) % 5==0 && (j+1) % 5 == 0)                    // 5칸마다 찐하게
-//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize-1,false );
-//				else if ((i+1) % 5 == 0 && (j+1) % 5 != 0)
-//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize,false );
-//				else if ((i+1) % 5 != 0 && (j+1) % 5 == 0)
-//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize-1,false );
-//				else
-//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize,false );
-//				
-//			}
-//		}
-		// 격자 출력 완료
-		// 사각형 왼쪽위 시작점의 x좌표 (start_x) : (clientWidth/3)
-		// 사각형 왼쪽위 시작점의 y좌표 (start_y) : (int)(clientHeight/2.5)
 		
+		// 사각형 왼쪽위 시작점의 x좌표 (start_x) : clientWidth/3
+		// 사각형 왼쪽위 시작점의 y좌표 (start_y) : (int)(clientHeight/2.5)
 		int start_x = clientWidth/3;
 		int start_y = (int)(clientHeight/2.5);
+		board_start_x = start_x;
+		board_start_y = start_y;
 		
 		// 숫자 보여줄 가로 line 출력
 		for(int j=0;j<ySize+1;j++) {
@@ -126,13 +128,6 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		}
 		// 라인출력 끝
 		
-		 
-		
-		
-		
-		
-		
-		
 		g.drawImage(offScr, 0, 0, this);
 		
 		
@@ -140,11 +135,9 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	
 	
 	
-	public void update(Graphics g) {
+	public void update(Graphics g) {       // repaint() 쓰기위해 설정.    이거 없으면 pause화면에서back 할때 pause화면도 그대로 출력
 		paint(g);
 	}
-	
-	
 	
 	
 	public void makeButtonAndEventHandle() {
@@ -156,6 +149,8 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 		add(btn_pause_main);
 		btn_pause_main.addActionListener(this);
+		
+		
 	}
 
 	@Override
@@ -173,9 +168,7 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	
 	
 	public void go_game_pause() {
-		btn_play_pause.setVisible(false);
-//		btn_play_pause.setText("BACK");
-		
+		btn_play_pause.setVisible(false);		
 		pPause.setVisible(true);
 	}
 	
@@ -183,10 +176,44 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	public void go_game_play() {
 
 		repaint();
-		btn_play_pause.setVisible(true);
-		
+		btn_play_pause.setVisible(true);		
 		pPause.setVisible(false);
 	}
+	
+	
+	
+	
+	
+	
+	
+	class MyMouseMotion extends MouseMotionAdapter{
+		
+		public void mouseMoved(MouseEvent e) {
+			lb.setOpaque(true);
+			lb.setBackground(Color.yellow);
+			lb.setText(e.getX()+ ", " + e.getY());
+			
+			Dimension d = lb.getPreferredSize();
+			int width = (int)d.getWidth();
+			int height = (int)d.getHeight();
+			lb.setSize(width, height);
+			lb.setLocation(e.getX() - width, e.getY() - height);
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
@@ -194,6 +221,12 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		e0_game_Main nemo = new e0_game_Main();
 		
 	}
+
+
+
+
+		
+	
 }
 
 
