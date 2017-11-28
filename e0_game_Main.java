@@ -1,4 +1,5 @@
-// #4 pause 돌아올때 오류 수정
+// #5 격자를 로직에 맞게 수정.  사각형부분의 왼쪽위 시작점의 x좌표, y좌표 변수로 설정
+
 package ex;
 
 import java.awt.*;
@@ -28,7 +29,7 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	
 	private boolean game_Pause = false;
 	
-	Image offScr;         // 돌아올때 오류를 수정하기 위해 추가
+	Image offScr;
 	Graphics offG;  
 	
 	
@@ -54,7 +55,7 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 
 		offScr = createImage(clientWidth, clientHeight);
-		offG = offScr.getGraphics();                   // 이제 g. 에서 노는게 아니라 offG. 에서 놈 
+		offG = offScr.getGraphics();
 		
 		
 		
@@ -87,20 +88,49 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		pPause.setVisible(false);
 		// 게임중 일시정지화면 END
 		
-		for (int i=0; i<xSize; i++) {       //x축 길이
-			for(int j=0; j<ySize; j++) {   //y축 길이
-				offG.setColor(Color.DARK_GRAY);       // 이제 g. 에서 노는게 아니라 offG. 에서 놈 
-				if((i+1) % 5==0 && (j+1) % 5 == 0)                    // 5칸마다 찐하게
-					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize-1,false );
-				else if ((i+1) % 5 == 0 && (j+1) % 5 != 0)
-					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize,false );
-				else if ((i+1) % 5 != 0 && (j+1) % 5 == 0)
-					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize-1,false );
-				else
-					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize,false );
-				
-			}
+		// 격자 출력
+//		for (int i=0; i<xSize; i++) {       //x축 길이
+//			for(int j=0; j<ySize; j++) {   //y축 길이
+//				offG.setColor(Color.black);
+//				if((i+1) % 5==0 && (j+1) % 5 == 0)                    // 5칸마다 찐하게
+//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize-1,false );
+//				else if ((i+1) % 5 == 0 && (j+1) % 5 != 0)
+//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize,false );
+//				else if ((i+1) % 5 != 0 && (j+1) % 5 == 0)
+//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize-1,false );
+//				else
+//					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize,false );
+//				
+//			}
+//		}
+		// 격자 출력 완료
+		// 사각형 왼쪽위 시작점의 x좌표 (start_x) : (clientWidth/3)
+		// 사각형 왼쪽위 시작점의 y좌표 (start_y) : (int)(clientHeight/2.5)
+		
+		int start_x = clientWidth/3;
+		int start_y = (int)(clientHeight/2.5);
+		
+		// 숫자 보여줄 가로 line 출력
+		for(int j=0;j<ySize+1;j++) {
+			offG.drawLine( start_x -130, start_y + j*yboxSize, start_x +xSize*xboxSize,  start_y+j*yboxSize);
+			if (j % 5 ==0)
+				offG.drawLine( start_x -130, start_y + j*yboxSize-1, start_x +xSize*xboxSize,  start_y+j*yboxSize-1);
 		}
+		// 그냥 사각형 출력하지말고 라인으로만 해도 안되나?
+		
+		// 세로 line 출력
+		for (int i=0; i<xSize+1; i++) {
+			offG.drawLine( start_x +i*xboxSize,  start_y-130, start_x +i*xboxSize,  start_y + ySize*yboxSize);
+			if (i % 5 ==0)
+				offG.drawLine( start_x +i*xboxSize-1,  start_y-130, start_x +i*xboxSize-1,  start_y + ySize*yboxSize);
+		}
+		// 라인출력 끝
+		
+		 
+		
+		
+		
+		
 		
 		
 		g.drawImage(offScr, 0, 0, this);
