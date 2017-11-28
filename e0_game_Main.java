@@ -1,5 +1,4 @@
-// #3 pause 구현 (미완) - 게임화면으로 돌아올 때 오류있음
-
+// #4 pause 돌아올때 오류 수정
 package ex;
 
 import java.awt.*;
@@ -29,6 +28,10 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	
 	private boolean game_Pause = false;
 	
+	Image offScr;         // 돌아올때 오류를 수정하기 위해 추가
+	Graphics offG;  
+	
+	
 	
 	public e0_game_Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,12 +46,17 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	
 	
 	public void paint(Graphics g) {
-
 		Container win = getContentPane();
 		
 		Dimension d = win.getSize();
 		int clientWidth = d.width;
 		int clientHeight = d.height;
+		
+
+		offScr = createImage(clientWidth, clientHeight);
+		offG = offScr.getGraphics();                   // 이제 g. 에서 노는게 아니라 offG. 에서 놈 
+		
+		
 		
 		int xboxSize = (int)(clientWidth/1.7)/xSize;
 		int yboxSize = (int)(clientHeight/1.7)/ySize;
@@ -81,18 +89,21 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 		for (int i=0; i<xSize; i++) {       //x축 길이
 			for(int j=0; j<ySize; j++) {   //y축 길이
-				g.setColor(Color.DARK_GRAY);
+				offG.setColor(Color.DARK_GRAY);       // 이제 g. 에서 노는게 아니라 offG. 에서 놈 
 				if((i+1) % 5==0 && (j+1) % 5 == 0)                    // 5칸마다 찐하게
-					g.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize-1,false );
+					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize-1,false );
 				else if ((i+1) % 5 == 0 && (j+1) % 5 != 0)
-					g.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize,false );
+					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize-1,yboxSize,false );
 				else if ((i+1) % 5 != 0 && (j+1) % 5 == 0)
-					g.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize-1,false );
+					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize-1,false );
 				else
-					g.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize,false );
+					offG.draw3DRect( (clientWidth/3) +i*xboxSize, (int)(clientHeight/2.5)+j*yboxSize,xboxSize,yboxSize,false );
 				
 			}
 		}
+		
+		
+		g.drawImage(offScr, 0, 0, this);
 		
 		
 	}
