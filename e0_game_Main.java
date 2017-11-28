@@ -1,4 +1,4 @@
-// #0 Start 격자구현
+// #1 pause 버튼 구현
 
 package ex;
 
@@ -10,16 +10,19 @@ import java.awt.image.ImageProducer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 
 
 
-public class e0_game_Main extends JFrame {
+public class e0_game_Main extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private int xSize = 20;  // x축길이
 	private int ySize = 20;  // y축 길이
 	private int board[][] = new int[xSize][ySize];
+	
+	private JButton btn_pause= new JButton("PAUSE");
+	
+	
 	
 	
 	public e0_game_Main() {
@@ -29,8 +32,23 @@ public class e0_game_Main extends JFrame {
 		setSize(700,700);
 		
 		setLayout(null);
+		add(btn_pause);
 		setVisible(true);
 	}
+	public e0_game_Main(int x, int y) {
+		xSize = x;
+		ySize = y;
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("네모네모 로직!");
+		setSize(700,700);
+		
+		setLayout(null);
+		add(btn_pause);
+		setVisible(true);
+	}
+	
+	
 	
 	
 	public void paint(Graphics g) {
@@ -46,6 +64,9 @@ public class e0_game_Main extends JFrame {
 		int xboxSize = (int)(clientWidth/1.7)/xSize;
 		int yboxSize = (int)(clientHeight/1.7)/ySize;
 		
+
+		btn_pause.setSize(clientWidth/5,clientHeight/10 );
+		btn_pause.setLocation(clientWidth/15,clientHeight/10);
 		
 		for (int i=0; i<xSize; i++) {       //x축 길이
 			for(int j=0; j<ySize; j++) {   //y축 길이
@@ -63,6 +84,23 @@ public class e0_game_Main extends JFrame {
 		}
 	}
 
+	
+	public void makeButtonAndEventHandle() {
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String strCmd = e.getActionCommand(); // 클릭된 버튼의 이름을 저장
+		
+		if (strCmd.equals("btn_pause")) {
+			btn_pause.setText("gg");
+			
+		}
+		
+		
+	}
+	
 	
 
 	public static void main(String[] args) {
