@@ -1,15 +1,18 @@
-// #2 pause버튼 이벤트
+// #3 pause 구현 (미완) - 게임화면으로 돌아올 때 오류있음
+
 package ex;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
 
 
 public class e0_game_Main extends JFrame implements ActionListener{
@@ -18,12 +21,16 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	private int ySize = 20;  // y축 길이
 	private int board[][] = new int[xSize][ySize];
 	
-	private JButton btn_pause= new JButton("PAUSE");
+	private JButton btn_play_pause= new JButton("PAUSE");
 	
+	private JPanel pPause = new JPanel();
+	private JButton btn_pause_back= new JButton("BACK");
+	private JButton btn_pause_main=new JButton("MAIN");
+	
+	private boolean game_Pause = false;
 	
 	
 	public e0_game_Main() {
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("네모네모 로직!");
 		setSize(700,700);
@@ -37,11 +44,9 @@ public class e0_game_Main extends JFrame implements ActionListener{
 	
 	public void paint(Graphics g) {
 
-		
 		Container win = getContentPane();
 		
 		Dimension d = win.getSize();
-		
 		int clientWidth = d.width;
 		int clientHeight = d.height;
 		
@@ -49,8 +54,30 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		int yboxSize = (int)(clientHeight/1.7)/ySize;
 		
 
-		btn_pause.setSize(clientWidth/5,clientHeight/10 );
-		btn_pause.setLocation(clientWidth/15,clientHeight/10);
+		btn_play_pause.setSize(clientWidth/5,clientHeight/10 );
+		btn_play_pause.setLocation(clientWidth/15,clientHeight/10);
+		
+
+		//게임중 일시정지 화면 START
+		pPause.setLayout(null);
+		int PauseBoxWidth = (int)(clientWidth/1.2);
+		int PauseBoxHeight = (int)(clientHeight/1.1);
+		pPause.setSize(PauseBoxWidth,PauseBoxHeight);
+		pPause.setLocation((clientWidth-PauseBoxWidth)/2,(clientHeight-PauseBoxHeight)/2);
+		pPause.setBackground(Color.YELLOW);
+		
+
+		btn_pause_back.setSize(PauseBoxWidth/2,PauseBoxHeight/5);
+		btn_pause_back.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2, PauseBoxHeight/5);
+		pPause.add(btn_pause_back);
+		
+		btn_pause_main.setSize(PauseBoxWidth/2,PauseBoxHeight/5);
+		btn_pause_main.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2,PauseBoxHeight*3/5);
+		pPause.add(btn_pause_main);
+		
+		add(pPause);       //버튼이 먼저있어야 버튼이 제일위에옴
+		pPause.setVisible(false);
+		// 게임중 일시정지화면 END
 		
 		for (int i=0; i<xSize; i++) {       //x축 길이
 			for(int j=0; j<ySize; j++) {   //y축 길이
@@ -69,31 +96,55 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 		
 	}
-
+	
+	
+	
+	public void update(Graphics g) {
+		paint(g);
+	}
+	
+	
+	
 	
 	public void makeButtonAndEventHandle() {
-		add(btn_pause);
-		btn_pause.addActionListener(this);
+		add(btn_play_pause);
+		btn_play_pause.addActionListener(this);
 		
+		add(btn_pause_back);
+		btn_pause_back.addActionListener(this);
+		
+		add(btn_pause_main);
+		btn_pause_main.addActionListener(this);
 	}
 
-	
-	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String strCmd = e.getActionCommand(); // 클릭된 버튼의 이름을 저장
-		Container pane = getContentPane();
 		
 		if (strCmd.equals("PAUSE")) {
-			btn_pause.setText("BACK");
+			go_game_pause();
 		}
-		if (strCmd.equals("BACK")) {
-			btn_pause.setText("PAUSE");
-			
+		else if(strCmd.equals("BACK")) {
+			go_game_play();
 		}
+	}
+	
+	
+	
+	public void go_game_pause() {
+		btn_play_pause.setVisible(false);
+//		btn_play_pause.setText("BACK");
 		
+		pPause.setVisible(true);
+	}
+	
+	
+	public void go_game_play() {
+
+		repaint();
+		btn_play_pause.setVisible(true);
 		
+		pPause.setVisible(false);
 	}
 	
 	
@@ -103,3 +154,5 @@ public class e0_game_Main extends JFrame implements ActionListener{
 		
 	}
 }
+
+
