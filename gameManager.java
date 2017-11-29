@@ -6,7 +6,7 @@ import javax.naming.InitialContext;
 import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import nonogram.panel_Main;
  
 public class gameManager extends JFrame {
 	public static gameManager manager;
@@ -14,8 +14,8 @@ public class gameManager extends JFrame {
 	int clientWidth;
 	int clientHeigh;
 	
-	panel_Main panel_main= new panel_Main(this);
-	panel_Game panel_game= new panel_Game();
+	panel_Main panel_main;
+	panel_Game panel_game;
 	@Override
 	protected void frameInit() {
 		// TODO Auto-generated method stub
@@ -25,18 +25,18 @@ public class gameManager extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(700,700);
 		setLayout(null);
-		clientWidth=manager.getContentPane().getSize().width;
-		System.out.println(clientWidth);
 	}
 	public gameManager() {
+		setVisible(true);
+		
+		panel_main= new panel_Main(this);
+		panel_game= new panel_Game(this);
 		this.getContentPane().add(panel_main);           // 이거안해주면 안됨 2#@#@#@#! 개중요 ㅅㅂ... 바로 add하면 안됩니다
 		this.getContentPane().add(panel_game);
 		
 		panel_main.setVisible(true);
 		panel_game.setVisible(false);
-		setVisible(true);
 	}
-	
 	
 	
 	
@@ -44,7 +44,6 @@ public class gameManager extends JFrame {
 	public void setPanel_Game() {
 		panel_main.setVisible(false);
 		panel_game.setVisible(true);
-		System.out.println("1");
 	}
 	
 	public void setPanel_main() {

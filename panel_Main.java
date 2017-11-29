@@ -18,6 +18,8 @@ import nonogram.gameManager;
 
 public class panel_Main extends JPanel implements ActionListener{
 	
+	gameManager gm;
+	
 	ImageIcon imgIco = new ImageIcon("111.png","사진");
 	Image img = imgIco.getImage();
 
@@ -29,36 +31,38 @@ public class panel_Main extends JPanel implements ActionListener{
 	int size_main_btn_x = 230;
 	int size_main_btn_y = 80;
 	
-	int size_clientWidth=684;
-	int size_clientHeight=660;
+	int size_clientWidth=700;
+	int size_clientHeight=700;
 	boolean a = false;
-	
-	public panel_Main(gameManager gm) {
-		setBounds(0, 0, 700, 700);
+	protected void frameInit() {
+		setBounds(0, 0, size_clientWidth, size_clientHeight);
 		setLayout(null);
 		makeButtonAndEventHandle();
-		size_clientWidth=gm.getContentPane().getSize().width;
-		size_clientHeight = gm.getHeight();
+	}
+	
+	
+	
+	public panel_Main(gameManager gm) {
+		this.gm = gm;
+		size_clientWidth = gm.getContentPane().getSize().width;
+		size_clientHeight = gm.getContentPane().getSize().height;
+		setBounds(0, 0, size_clientWidth, size_clientHeight);
+		setLayout(null);
+		makeButtonAndEventHandle();
 		System.out.println(size_clientWidth);
 		System.out.println(size_clientHeight);
 	}
 
 	public void paintComponent (Graphics g) { //g는 원래 있는 객체
 		super.paintComponent(g);
-		g.drawImage(img, 0, 0, 700,size_clientHeight, this);
+		g.drawImage(img, 0, 0, size_clientWidth,size_clientHeight, this);
 	
 	}
 
 	@Override
 	public void update(Graphics g) {
 		// TODO Auto-generated method stub
-		super.update(g);
-		if (a==false) {
-			size_clientWidth=gameManager.manager.getContentPane().getSize().width;
-			a=true;
 
-			repaint();
-		}
 	}
 
 	

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import nonogram.gameManager;
 public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	private static final long serialVersionUID = 1L;
-	
+	gameManager gm;
 	
 	
 	private int xSize = 10;  // x√‡±Ê¿Ã
@@ -48,8 +48,13 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	
 	
 	
-	public panel_Game() {
-		setBounds(0, 0, 700, 700);
+	public panel_Game(gameManager gm) {
+		this.gm = gm;
+
+		size_clientWidth = gm.getContentPane().getSize().width;
+		size_clientHeight = gm.getContentPane().getSize().height;
+		setBounds(0, 0, size_clientWidth, size_clientHeight);
+		
 		setLayout(null);
 		createPausePanel();
 		makeButtonAndEventHandle();
