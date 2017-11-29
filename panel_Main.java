@@ -1,18 +1,14 @@
 package game;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
 
 import javax.swing.*;
 
 
-import nonogram.gameManager;
-
-
 public class panel_Main extends JPanel implements ActionListener{
+	private static final long serialVersionUID = 1L;
+	
 	public static panel_Main main;
 	Frame fr;
 	
@@ -88,7 +84,7 @@ public class panel_Main extends JPanel implements ActionListener{
 	}
 	
 	void go_rank() {
-		
+//		fr.goRank();
 	}
 	
 	void go_game() {

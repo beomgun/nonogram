@@ -1,6 +1,5 @@
 package game;
 
-import javax.xml.stream.events.StartDocument;
 
 public class Manager {
 
@@ -38,8 +37,7 @@ public class Manager {
 		time_readyWait = 5.0f;
 		
 		
-		
-		new Frame();
+		new Frame();           // 초기 설정후 Frame 만들기로 이동
 	}
 	
 	// 레벨바꾸기!
@@ -61,21 +59,10 @@ public class Manager {
 	
 	
 	
-	public void goPanel_Game() {
-		gameIn = true;
-	}
-	
-	public void goPanel_main() {
-		gameIn = false;
-		
-//		panel_rank.setVisible(false);
-		
-	}
-	
 	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Manager mn = new Manager();
+		new Manager();
 	}
 }

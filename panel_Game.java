@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import nonogram.gameManager;
 public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	private static final long serialVersionUID = 1L;
 	Frame fr;

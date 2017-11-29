@@ -1,15 +1,13 @@
 package game;
 
-import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
 
-import ex.menuItem.MenuHandler;
-import nonogram.panel_Main;
  
 public class Frame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	
 	JPanel panel_main;
 	JPanel panel_game;
@@ -67,6 +65,11 @@ public class Frame extends JFrame {
 		panel_main.setVisible(true);
 		panel_game.setVisible(false);
 		
+	}
+	
+	public void goRank() {
+		panel_main.setVisible(false);
+//		panel_rank.setVisible(true);    //  나중에 이걸 추가해야지!
 	}
 	
 }
