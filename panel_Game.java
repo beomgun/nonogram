@@ -13,9 +13,12 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import nonogram.gameManager;
 public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	private static final long serialVersionUID = 1L;
@@ -32,7 +35,6 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	private JButton btn_pause_back= new JButton("BACK");
 	private JButton btn_pause_main=new JButton("MAIN");
 	
-	private boolean game_Pause = false;
 	private int board_start_x,board_start_y;
 	private int xboxSize,yboxSize;
 	
@@ -45,10 +47,14 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	int PauseBoxHeight = (int)(size_clientHeight/1.1);
 
 
+	JLabel startTimer = new JLabel("5");
+	
+	
+	
+	
+	
 	Image offScr;
 	Graphics offG;  
-	
-	
 	
 	public panel_Game(gameManager gm) {
 		this.gm = gm;
@@ -67,19 +73,18 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 			}
 		});
 		
-		
-		
-		
-		
 		setBounds(0, 0, size_clientWidth, size_clientHeight);
 		
 		setLayout(null);
 		createPausePanel();
 		pPause.setVisible(false);
 		makeButtonAndEventHandle();
+		makeStartTimer();
 	}
 	
-
+	
+	
+	
 	public void paintComponent (Graphics g) { //g는 원래 있는 객체
 		super.paintComponent(g);
 		
@@ -126,6 +131,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		add(pPause);       //버튼이 먼저있어야 버튼이 제일위에옴
 		
 	}
+	
 	
 	
 	public void makeButtonAndEventHandle() {
@@ -185,6 +191,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		btn_play_pause.setVisible(false);
 		lab_time.setVisible(false);
 		pPause.setVisible(true);
+		gameManager.manager.gamePause = true;
 	}
 	
 	
@@ -192,6 +199,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		btn_play_pause.setVisible(true);
 		lab_time.setVisible(true);		
 		pPause.setVisible(false);
+		gameManager.manager.gamePause = false;
 	}
 
 
@@ -225,6 +233,58 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	
 
 
+	
+	
+	
+	
+	
+	class TimerThread extends Thread{
+		private JLabel timerLabel;
+		
+		public TimerThread(JLabel timerLabel) {
+			this.timerLabel = timerLabel;
+		}
+	 
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			try {
+				Thread.sleep(400);
+			}catch(InterruptedException e) {
+				return;
+			}
+			int n = 5;
+			while(n>-1) {
+				timerLabel.setText(Integer.toString(n));
+				n--;
+				if(n<0)
+					timerLabel.setText("START !");
+				try {
+					Thread.sleep(1000);
+				}catch(InterruptedException e) {
+					return;
+				}
+			}
+			timerLabel.setVisible(false);
+			btn_play_pause.setEnabled(true);
+			gameManager.manager.gameStart = true;
+			
+		}
+	}
+	
+	
+	
+	public void makeStartTimer() {
+		startTimer.setSize(size_clientWidth/2, size_clientHeight/10);
+		startTimer.setLocation((size_clientWidth-size_clientWidth/2)/2, size_clientHeight/2);
+		startTimer.setFont(new Font("Gothic", Font.TRUETYPE_FONT, 70));
+		startTimer.setForeground(Color.RED);
+		startTimer.setHorizontalAlignment(SwingConstants.CENTER);
+		add(startTimer);
+		TimerThread th = new TimerThread(startTimer);
+		th.start();
+		btn_play_pause.setEnabled(false);
+	}
 
 	
 }
