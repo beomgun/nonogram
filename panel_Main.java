@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +19,7 @@ import nonogram.gameManager;
 
 
 public class panel_Main extends JPanel implements ActionListener{
-	
+	public static panel_Main main;
 	gameManager gm;
 	
 	ImageIcon imgIco = new ImageIcon("111.png","사진");
@@ -44,28 +46,35 @@ public class panel_Main extends JPanel implements ActionListener{
 	
 	public panel_Main(gameManager gm) {
 		this.gm = gm;
-		size_clientWidth = gm.getContentPane().getSize().width;
-		size_clientHeight = gm.getContentPane().getSize().height;
+		size_clientWidth = gm.clientWidth;
+		size_clientHeight = gm.clientHeigh;
+		
+		gm.addComponentListener(new ComponentAdapter() {          // JFrame의 화면크기가 변할때 마다 사이즈 변경시킴
+			public void componentResized(ComponentEvent e) {
+				size_clientWidth=gameManager.manager.getContentPane().getSize().width;
+				size_clientHeight = gameManager.manager.getContentPane().getSize().height;
+				setBounds(0, 0, size_clientWidth, size_clientHeight);
+				size_main_btn_x = size_clientWidth/4;
+				size_main_btn_y = size_clientHeight/10;
+				makeButtonAndEventHandle();
+			}
+		});
+		
+
 		setBounds(0, 0, size_clientWidth, size_clientHeight);
+		
 		setLayout(null);
 		makeButtonAndEventHandle();
-		System.out.println(size_clientWidth);
-		System.out.println(size_clientHeight);
 	}
 
 	public void paintComponent (Graphics g) { //g는 원래 있는 객체
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, size_clientWidth,size_clientHeight, this);
 	
-	}
-
-	@Override
-	public void update(Graphics g) {
-		// TODO Auto-generated method stub
-
-	}
-
+		}
 	
+	
+		
 	public void makeButtonAndEventHandle() {
 
 		btn_main_Start.setSize(size_main_btn_x, size_main_btn_y);
@@ -99,7 +108,7 @@ public class panel_Main extends JPanel implements ActionListener{
 		}
 		else if (strCmd.equals("게임 시작")) {
 			setVisible(false);
-			gameManager.manager.setPanel_Game();
+			gameManager.manager.goPanel_Game();
 		}
 	}
 	

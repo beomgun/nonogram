@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -51,12 +53,29 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	public panel_Game(gameManager gm) {
 		this.gm = gm;
 
-		size_clientWidth = gm.getContentPane().getSize().width;
-		size_clientHeight = gm.getContentPane().getSize().height;
+		size_clientWidth = gm.clientWidth;
+		size_clientHeight = gm.clientHeigh;
+		
+		gm.addComponentListener(new ComponentAdapter() { 
+			public void componentResized(ComponentEvent e) {
+				size_clientWidth=gameManager.manager.getContentPane().getSize().width;
+				size_clientHeight = gameManager.manager.getContentPane().getSize().height;
+				setBounds(0, 0, size_clientWidth, size_clientHeight);
+				PauseBoxWidth = (int)(size_clientWidth/1.2);
+				PauseBoxHeight = (int)(size_clientHeight/1.1);
+				makeButtonAndEventHandle();
+			}
+		});
+		
+		
+		
+		
+		
 		setBounds(0, 0, size_clientWidth, size_clientHeight);
 		
 		setLayout(null);
 		createPausePanel();
+		pPause.setVisible(false);
 		makeButtonAndEventHandle();
 	}
 	
@@ -81,17 +100,17 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		
 		// 숫자 보여줄 가로 line 출력
 		for(int j=0;j<ySize+1;j++) {
-			offG.drawLine( board_start_x -120, board_start_y + j*yboxSize, board_start_x +xSize*xboxSize,  board_start_y+j*yboxSize);
+			offG.drawLine( board_start_x -size_clientWidth/6, board_start_y + j*yboxSize, board_start_x +xSize*xboxSize,  board_start_y+j*yboxSize);
 			if (j % 5 ==0)
-				offG.drawLine( board_start_x -120, board_start_y + j*yboxSize-1, board_start_x +xSize*xboxSize,  board_start_y+j*yboxSize-1);
+				offG.drawLine( board_start_x -size_clientWidth/6, board_start_y + j*yboxSize-1, board_start_x +xSize*xboxSize,  board_start_y+j*yboxSize-1);
 		}
 		// 그냥 사각형 출력하지말고 라인으로만 해도 안되나?
 		
 		// 세로 line 출력
 		for (int i=0; i<xSize+1; i++) {
-			offG.drawLine( board_start_x +i*xboxSize,  board_start_y-120, board_start_x +i*xboxSize,  board_start_y + ySize*yboxSize);
+			offG.drawLine( board_start_x +i*xboxSize,  board_start_y-size_clientHeight/6, board_start_x +i*xboxSize,  board_start_y + ySize*yboxSize);
 			if (i % 5 ==0)
-				offG.drawLine( board_start_x +i*xboxSize-1,  board_start_y-120, board_start_x +i*xboxSize-1,  board_start_y + ySize*yboxSize);
+				offG.drawLine( board_start_x +i*xboxSize-1,  board_start_y-size_clientHeight/6, board_start_x +i*xboxSize-1,  board_start_y + ySize*yboxSize);
 		}
 		// 라인출력 끝
 		
@@ -105,7 +124,6 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		pPause.setLocation((size_clientWidth-PauseBoxWidth)/2,(size_clientHeight-PauseBoxHeight)/2);
 		pPause.setBackground(Color.YELLOW);
 		add(pPause);       //버튼이 먼저있어야 버튼이 제일위에옴
-		pPause.setVisible(false);
 		
 	}
 	
@@ -156,7 +174,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 			btn_play_pause.setVisible(true);
 			lab_time.setVisible(true);	
 			pPause.setVisible(false);
-			gameManager.manager.setPanel_main();
+			gameManager.manager.goPanel_main();
 			///////////////////////////////////
 		}
 	}
