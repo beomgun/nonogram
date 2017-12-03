@@ -11,10 +11,15 @@ public class panel_Main extends JPanel implements ActionListener{
 	
 	public static panel_Main main;
 	Frame fr;
+	JPanel panel_fade = new panel_FadeIO();
 	
 	ImageIcon imgIco = new ImageIcon("111.png","사진");
 	Image img = imgIco.getImage();
 
+	
+	
+	
+	
 	
 	JButton btn_main_Start = new JButton("게임 시작");
 	JButton btn_main_Rank = new JButton("랭킹 보기");
@@ -33,12 +38,14 @@ public class panel_Main extends JPanel implements ActionListener{
 		setLayout(null);
 		add(btn_main_Start);
 		add(btn_main_Rank);
+	//	btn_main_Rank.setEnabled(false);     // 오픈준비중입니다!
 		add(btn_main_Exit);
 	}
 	
 	
 
 	public void paintComponent (Graphics g) { //g는 원래 있는 객체
+		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
 		g.drawImage(img, 0, 0, Manager.manager.clientWidth ,Manager.manager.clientHeight, this);
 		makeButtonAndEventHandle();
 	}
@@ -75,7 +82,7 @@ public class panel_Main extends JPanel implements ActionListener{
 		if (strCmd.equals("종료")) {
 			System.exit(0);
 		}
-		else if(strCmd.equals("랭킹 화면")) {
+		else if(strCmd.equals("랭킹 보기")) {
 			go_rank();
 		}
 		else if (strCmd.equals("게임 시작")) {
@@ -84,7 +91,7 @@ public class panel_Main extends JPanel implements ActionListener{
 	}
 	
 	void go_rank() {
-//		fr.goRank();
+		fr.goRank();
 	}
 	
 	void go_game() {

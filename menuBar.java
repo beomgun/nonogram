@@ -7,9 +7,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import ex.menuItem.MenuHandler;
 
 public class menuBar extends JMenuBar {
+	private static final long serialVersionUID = 1L;
 	JMenu m1;
 	
 	

@@ -9,6 +9,7 @@ public class Manager {
 	public boolean gameReady;    // 게임 카운트 세는중인지 확인
 	public boolean gameOver;     // 게임중 게임오버했는지 확인  > 했을경우 기록저장용
 	public boolean gamePause;    // 게임 일시정지중인지.
+		
 	
 	public int level;
 	public int clientWidth;
@@ -28,6 +29,7 @@ public class Manager {
 		gameOver = false;
 		gamePause = false;
 		
+		
 		level = 2;
 		clientWidth = 700;
 		clientHeight = 700;
@@ -43,17 +45,17 @@ public class Manager {
 	// 레벨바꾸기!
 	public void changeLevel(int level) {
 		if(level == 1) {
-			this.level=1;
+			this.level = 1;
 			xSize = 10;
 			ySize = 10;
 		}
 		else if(level == 2) {
-			this.level=2;
+			this.level = 2;
 			xSize = 15;
 			ySize = 15;
 		}
 		else if(level == 3) {
-			this.level=3;
+			this.level = 3;
 			xSize = 20;
 			ySize = 20;
 		}
