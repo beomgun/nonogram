@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class panel_Game extends JPanel implements ActionListener,MouseListener{
+public class panel_Game extends JPanel implements ActionListener,MouseListener, MouseMotionListener{
 	private static final long serialVersionUID = 1L;
 	Frame fr;
 	
@@ -17,6 +17,12 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 	int board_start_x,board_start_y;
 	int xboxSize,yboxSize;
 	
+	boolean mouseMoved = false;
+	boolean mouseClicked = false;
+	int userAns[][] = new int[Manager.manager.xSize][Manager.manager.ySize];  // ³»³õÀº ´ä
+	
+	
+	
 	private JLabel lab_time = new JLabel("00:00");
 
 	int PauseBoxWidth;
@@ -26,16 +32,15 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 
 	JLabel startTimer = new JLabel("5");
 	
-	
-	
-	
+	int mousePos_X, mousePos_Y;
 	
 	Image offScr;
 	Graphics offG;  
 	
+	
+	
 	public panel_Game(Frame fr) {
 		this.fr = fr;
-	
 		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
 		
 		setLayout(null);
@@ -46,13 +51,20 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		add(lab_time);
 		add(btn_play_pause);
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 	
-	
+	@Override
+	public void update(Graphics g) {
+		// TODO Auto-generated method stub
+		super.update(g);
+		paintComponent(g);
+	}
 	
 	
 	public void paintComponent (Graphics g) { //g´Â ¿ø·¡ ÀÖ´Â °´Ã¼
 		super.paintComponent(g);
+
 		
 		size_clientWidth = Manager.manager.clientWidth;
 		size_clientHeight = Manager.manager.clientHeight;
@@ -79,6 +91,8 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		board_start_x = size_clientWidth/3-30;
 		board_start_y = (int)(size_clientHeight/2.5)-30;
 		
+		
+		
 		// ¼ýÀÚ º¸¿©ÁÙ °¡·Î line Ãâ·Â
 		for(int j=0;j<ySize+1;j++) {
 			offG.drawLine( board_start_x -size_clientWidth/6, board_start_y + j*yboxSize, board_start_x +xSize*xboxSize,  board_start_y+j*yboxSize);
@@ -94,6 +108,48 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 				offG.drawLine( board_start_x +i*xboxSize-1,  board_start_y-size_clientHeight/6, board_start_x +i*xboxSize-1,  board_start_y + ySize*yboxSize);
 		}
 		// ¶óÀÎÃâ·Â ³¡
+		
+		
+		
+		// ÆÇÀ§¿¡¼­ ¸¶¿ì½º ¿òÁ÷ÀÌ¸é ÁÂÇ¥ º¸¿©ÁÜ
+		if(mouseMoved==true) {
+
+			int i = (mousePos_X-board_start_x)/xboxSize;
+			int j = (mousePos_Y-board_start_y)/yboxSize;
+			offG.setColor(new Color(0, 0, 0, 40));
+			offG.fillRect( board_start_x -size_clientWidth/6, board_start_y + j*yboxSize, size_clientWidth/6 +(i+1)*xboxSize , yboxSize);
+			offG.fillRect(board_start_x + i*xboxSize,board_start_y-size_clientHeight/6,xboxSize,size_clientHeight/6 + (j+1)*yboxSize);
+			
+			repaint();
+		}
+		// ÈÞ...
+		
+		
+		for(int i=0; i<Manager.manager.xSize; i++) {
+			for(int j=0; j<Manager.manager.ySize; j++) {
+				if(userAns[j][i] == 0) {  // ºóÄ­
+					offG.setColor(Color.BLACK);
+					offG.drawRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
+				}
+				else if(userAns[j][i] == 1) {  // Ã¤¿îÄ­
+					offG.fillRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
+				}
+				else if (userAns[j][i] == 2) {
+					offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + (j+1)*yboxSize);
+					offG.drawLine(board_start_x+i*xboxSize, board_start_y + (j+1)*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + j*yboxSize);
+		//			offG.drawLine(board_start_x+i*xboxSize+ xboxSize/2, board_start_y + j*yboxSize,board_start_x+i*xboxSize+ xboxSize/2, board_start_y + (j+1)*yboxSize);
+		//			offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize+ yboxSize/2,board_start_x+(i+1)*xboxSize,board_start_y + j*yboxSize+ yboxSize/2);
+				}
+	
+				repaint();
+			}
+			
+		}
+		
+		
+		
+		
+		
 		g.drawImage(offScr, 0, 0, this);
 	}
 	
@@ -120,10 +176,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 		
 		// PAUSE//
 		btn_pause_back.setSize(PauseBoxWidth/2,PauseBoxHeight/5);
-		btn_pause_back.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2, PauseBoxHeight/5);
+		btn_pause_back.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2, (int)(PauseBoxHeight/2.3));
 		
 		btn_pause_main.setSize(PauseBoxWidth/2,PauseBoxHeight/5);
-		btn_pause_main.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2,PauseBoxHeight*3/5);
+		btn_pause_main.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2,(int)(PauseBoxHeight/1.4));
 		///////////////////
 		
 		
@@ -174,13 +230,22 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
+		mousePos_X = e.getX();
+		mousePos_Y = e.getY();
 		
-		if (x >= board_start_x && x <= board_start_x +Manager.manager.xSize*xboxSize) {
-			if (y>= board_start_y && y <= board_start_y + Manager.manager.ySize*yboxSize) {
-				lab_time.setText(x+" "+y);
-				return;
+		int i = (mousePos_X-board_start_x)/xboxSize;
+		int j = (mousePos_Y-board_start_y)/yboxSize;
+		
+		if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +Manager.manager.xSize*xboxSize) {
+			if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + Manager.manager.ySize*yboxSize) {
+				mouseClicked = true;
+				
+				if(userAns[j][i] == 0)       // ºóÄ­
+					userAns[j][i] = 1;
+				else if(userAns[j][i] == 1)   // ²ËÃ¤¿î Ä­
+					userAns[j][i] = 2;
+				else if(userAns[j][i] == 2)   // XÀÚ Ä­
+					userAns[j][i] = 0;
 			}
 		}	
 	}
@@ -200,6 +265,31 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {	}
+
+
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		mousePos_X = e.getX();
+		mousePos_Y = e.getY();
+		
+		
+		if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +Manager.manager.xSize*xboxSize) {
+			if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + Manager.manager.ySize*yboxSize) {
+				mouseMoved = true;
+			}
+			else {
+				mouseMoved = false;
+				}
+		}	
+		else
+			mouseMoved = false;
+	}
 	
 
 
