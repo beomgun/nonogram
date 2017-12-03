@@ -43,14 +43,17 @@ public class Manager {
 	// 레벨바꾸기!
 	public void changeLevel(int level) {
 		if(level == 1) {
+			this.level=1;
 			xSize = 10;
 			ySize = 10;
 		}
 		else if(level == 2) {
+			this.level=2;
 			xSize = 15;
 			ySize = 15;
 		}
 		else if(level == 3) {
+			this.level=3;
 			xSize = 20;
 			ySize = 20;
 		}

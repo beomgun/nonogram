@@ -43,15 +43,18 @@ public class menuBar extends JMenuBar {
 	          String str = e.getActionCommand(); 
 	          if (str.equals("Easy")) {
 	        	  Manager.manager.changeLevel(1);
+	        	  panel_Rank.RankManager.ChEasy();
 	        	  m1.setText("Easy Mode");
 	
 	          } 
 	          else if (str.equals("Normal")) {
 	        	  Manager.manager.changeLevel(2);
+	        	  panel_Rank.RankManager.ChNormal();
 	        	  m1.setText("Normal Mode");
 	          } 
 	          else if (str.equals("Hard")) {
 	        	  Manager.manager.changeLevel(3);
+	        	  panel_Rank.RankManager.ChHard();
 	        	  m1.setText("Hard Mode");
 	          } 
 	       } 

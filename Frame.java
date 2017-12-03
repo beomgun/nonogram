@@ -11,6 +11,7 @@ public class Frame extends JFrame {
 	
 	JPanel panel_main;
 	JPanel panel_game;
+	JPanel panel_rank;
     JMenuBar mb; 
 	
 	public Frame() {
@@ -29,6 +30,10 @@ public class Frame extends JFrame {
 		panel_game = new panel_Game(this);
 		add(panel_game);
 		panel_game.setVisible(false);
+		
+		panel_rank = new panel_Rank(this);
+		add(panel_rank);
+		panel_rank.setVisible(false);
 		
 		setVisible(true);
 		
@@ -67,9 +72,17 @@ public class Frame extends JFrame {
 		
 	}
 	
-	public void goRank() {
+	
+	public void goRank() {   
 		panel_main.setVisible(false);
-//		panel_rank.setVisible(true);    //  나중에 이걸 추가해야지!
+		panel_rank.setVisible(true);    //  나중에 이걸 추가해야지!
+	}
+	
+
+	public void goRMain() {      //랭킹에서 메인가는 버튼
+		panel_main.setVisible(true);
+		panel_rank.setVisible(false);   
+		
 	}
 	
 }
