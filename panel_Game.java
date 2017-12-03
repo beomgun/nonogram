@@ -2,6 +2,7 @@ package game;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class panel_Game extends JPanel implements ActionListener,MouseListener, MouseMotionListener{
@@ -18,10 +19,9 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	int xboxSize,yboxSize;
 	
 	boolean mouseMoved = false;
-	boolean mouseClicked = false;
-	int userAns[][] = new int[Manager.manager.xSize][Manager.manager.ySize];  // ≥ª≥ı¿∫ ¥‰
-	
-	
+	boolean gameOver = false;
+	StringBuffer userAns = new StringBuffer("");
+	String st = new String();	
 	
 	private JLabel lab_time = new JLabel("00:00");
 
@@ -41,6 +41,14 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	public panel_Game(Frame fr) {
 		this.fr = fr;
+		
+		for(int i=0; i<Manager.manager.ySize;i++) {
+			for(int j=0; j<Manager.manager.xSize; j++) {
+				userAns.append("0");
+				st = userAns.toString();
+			}
+		}
+		
 		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
 		
 		setLayout(null);
@@ -124,29 +132,28 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		}
 		// »ﬁ...
 		
-		
+		// ≈¨∏Ø«œ∏È æ»ø° ªˆ±Ú πŸ≤Ò 
 		for(int i=0; i<Manager.manager.xSize; i++) {
 			for(int j=0; j<Manager.manager.ySize; j++) {
-				if(userAns[j][i] == 0) {  // ∫Ûƒ≠
+				if(st.charAt(j*10+i) == '2') {  // ∫Ûƒ≠
 					offG.setColor(Color.BLACK);
 					offG.drawRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
 				}
-				else if(userAns[j][i] == 1) {  // √§øÓƒ≠
+				else if(st.charAt(j*10+i) == '1') {  // √§øÓƒ≠
+					offG.setColor(Color.BLACK);
 					offG.fillRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
 				}
-				else if (userAns[j][i] == 2) {
+				else if (st.charAt(j*10+i) == '0') {
+					offG.setColor(Color.BLACK);
 					offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + (j+1)*yboxSize);
 					offG.drawLine(board_start_x+i*xboxSize, board_start_y + (j+1)*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + j*yboxSize);
-		//			offG.drawLine(board_start_x+i*xboxSize+ xboxSize/2, board_start_y + j*yboxSize,board_start_x+i*xboxSize+ xboxSize/2, board_start_y + (j+1)*yboxSize);
-		//			offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize+ yboxSize/2,board_start_x+(i+1)*xboxSize,board_start_y + j*yboxSize+ yboxSize/2);
 				}
 	
 				repaint();
 			}
 			
 		}
-		
-		
+		//====================================================
 		
 		
 		
@@ -232,20 +239,26 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	public void mouseClicked(MouseEvent e) {
 		mousePos_X = e.getX();
 		mousePos_Y = e.getY();
+		st = userAns.toString();
 		
 		int i = (mousePos_X-board_start_x)/xboxSize;
 		int j = (mousePos_Y-board_start_y)/yboxSize;
 		
 		if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +Manager.manager.xSize*xboxSize) {
 			if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + Manager.manager.ySize*yboxSize) {
-				mouseClicked = true;
 				
-				if(userAns[j][i] == 0)       // ∫Ûƒ≠
-					userAns[j][i] = 1;
-				else if(userAns[j][i] == 1)   // ≤À√§øÓ ƒ≠
-					userAns[j][i] = 2;
-				else if(userAns[j][i] == 2)   // X¿⁄ ƒ≠
-					userAns[j][i] = 0;
+				if(st.charAt(j*10+i) == '2')      // ∫Ûƒ≠
+					userAns.replace(j*10+i, j*10+i+1, "1");				
+				else if(st.charAt(j*10+i) == '1')   // ≤À√§øÓ ƒ≠
+					userAns.replace(j*10+i, j*10+i+1, "0");
+				else if(st.charAt(j*10+i) == '0')   // X¿⁄ ƒ≠
+					userAns.replace(j*10+i, j*10+i+1, "2");
+				st = userAns.toString();
+// ¡§¥‰√º≈© =======================================================
+				if(st.equals(Manager.manager.easy_1))
+					System.out.println("≤˝");
+				
+				
 			}
 		}	
 	}
@@ -291,7 +304,6 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			mouseMoved = false;
 	}
 	
-
 
 	
 	

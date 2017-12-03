@@ -7,10 +7,8 @@ public class Manager {
 
 	public boolean gameIn;       // 게임 하고 있는지 여부 확인
 	public boolean gameReady;    // 게임 카운트 세는중인지 확인
-	public boolean gameOver;     // 게임중 게임오버했는지 확인  > 했을경우 기록저장용
 	public boolean gamePause;    // 게임 일시정지중인지.
 		
-	
 	public int level;
 	public int clientWidth;
 	public int clientHeight;
@@ -18,15 +16,22 @@ public class Manager {
 	public int xSize;            // x축 박스 갯수 (길이)
 	public int ySize;            // y축 박스 개수 (길이)
 	
-	
-	public float time_readyWait;
+	String easy_1 = "1000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000";
 	
 	public Manager() {
 		manager=this;
 		// TODO Auto-generated method stub
 		gameIn = false;
 		gameReady = false;
-		gameOver = false;
 		gamePause = false;
 		
 		
@@ -36,7 +41,6 @@ public class Manager {
 		xSize = 15;
 		ySize = 15;
 		
-		time_readyWait = 5.0f;
 		
 		
 		new Frame();           // 초기 설정후 Frame 만들기로 이동
@@ -61,9 +65,6 @@ public class Manager {
 		}
 			
 	}
-	
-	
-	
 	
 	
 	public static void main(String[] args) {
