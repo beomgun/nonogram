@@ -32,7 +32,15 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	int size_clientWidth;
 	int size_clientHeight;
 
-	JLabel startTimer = new JLabel("5");
+	JPanel pEnd = new JPanel();
+	JTextField tf_end_name = new JTextField();     // 3등이내 들어갈 시 이름입력칸
+	JButton btn_end_regist = new JButton("등록하기"); // 3등이내 들어갈 시 랭킹 등록 칸
+	JButton btn_end_goMain = new JButton("홈으로");
+	JButton btn_end_goRank = new JButton("랭킹 보기");
+	
+	
+	
+	
 	
 	int mousePos_X, mousePos_Y;
 	
@@ -49,7 +57,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
-				userAns.append("2");
+				userAns.append("0");
 				st = userAns.toString();
 			}
 		}
@@ -61,6 +69,14 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		pPause.add(btn_pause_main);
 		pPause.add(btn_pause_back);
 		pPause.setVisible(false);
+		
+		add(pEnd);
+		pEnd.add(tf_end_name);
+		pEnd.add(btn_end_regist);
+		pEnd.add(btn_end_goMain);
+		pEnd.add(btn_end_goRank);
+		pEnd.setVisible(false);
+		
 		add(lab_time);
 		add(btn_play_pause);
 		addMouseListener(this);
@@ -97,6 +113,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 		makeButtonAndEventHandle();
 		createPausePanel();
+		createEndPanel();
 		
 		
 		// 사각형 왼쪽위 시작점의 x좌표 (start_x) : size_clientWidth/3
@@ -121,46 +138,48 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 				offG.drawLine( board_start_x +i*xboxSize-1,  board_start_y-size_clientHeight/6, board_start_x +i*xboxSize-1,  board_start_y + ySize*yboxSize);
 		}
 		// 라인출력 끝
-		
-		
-		
-		// 판위에서 마우스 움직이면 좌표 보여줌
-		if(mouseMoved==true) {
 
-			int i = (mousePos_X-board_start_x)/xboxSize;
-			int j = (mousePos_Y-board_start_y)/yboxSize;
-			offG.setColor(new Color(0, 0, 0, 40));
-			offG.fillRect( board_start_x -size_clientWidth/6, board_start_y + j*yboxSize, size_clientWidth/6 +(i+1)*xboxSize , yboxSize);
-			offG.fillRect(board_start_x + i*xboxSize,board_start_y-size_clientHeight/6,xboxSize,size_clientHeight/6 + (j+1)*yboxSize);
-			
-			repaint();
+		if(gameOver==true) {
+			go_end();
 		}
-		// 휴...
-		
-		// 클릭하면 안에 색깔 바뀜 
-		for(int i=0; i<xSize; i++) {
-			for(int j=0; j<ySize; j++) {
-				if(st.charAt(j*ySize+i) == '2') {  // 빈칸
-					offG.setColor(Color.BLACK);
-					offG.drawRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
-				}
-				else if(st.charAt(j*ySize+i) == '1') {  // 채운칸
-					offG.setColor(Color.BLACK);
-					offG.fillRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
-				}
-				else if (st.charAt(j*ySize+i) == '0') {
-					offG.setColor(Color.BLACK);
-					offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + (j+1)*yboxSize);
-					offG.drawLine(board_start_x+i*xboxSize, board_start_y + (j+1)*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + j*yboxSize);
-				}
+		else {                              // 게임이 끝나면 멈춰야할것들.
+			// 판위에서 마우스 움직이면 좌표 보여줌
+			if(mouseMoved==true) {
 	
+				int i = (mousePos_X-board_start_x)/xboxSize;
+				int j = (mousePos_Y-board_start_y)/yboxSize;
+				offG.setColor(new Color(0, 0, 0, 40));
+				offG.fillRect( board_start_x -size_clientWidth/6, board_start_y + j*yboxSize, size_clientWidth/6 +(i+1)*xboxSize , yboxSize);
+				offG.fillRect(board_start_x + i*xboxSize,board_start_y-size_clientHeight/6,xboxSize,size_clientHeight/6 + (j+1)*yboxSize);
+				
 				repaint();
 			}
+			// 휴...
 			
+			// 클릭하면 안에 색깔 바뀜 
+			for(int i=0; i<xSize; i++) {
+				for(int j=0; j<ySize; j++) {
+					if(st.charAt(j*ySize+i) == '2') {  // 빈칸
+						offG.setColor(Color.BLACK);
+						offG.drawRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
+					}
+					else if(st.charAt(j*ySize+i) == '1') {  // 채운칸
+						offG.setColor(Color.BLACK);
+						offG.fillRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
+					}
+					else if (st.charAt(j*ySize+i) == '0') {
+						offG.setColor(Color.BLACK);
+						offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + (j+1)*yboxSize);
+						offG.drawLine(board_start_x+i*xboxSize, board_start_y + (j+1)*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + j*yboxSize);
+					}
+		
+					repaint();
+				}
+				
+			}
+			//====================================================
 		}
-		//====================================================
-		
-		
+			
 		// 좌측 위측 숫자 나오게 
 		int cnt_r = 0, cnt_c=0; // 1갯수세는 변수
 		boolean cnt_zero_r =true, cnt_zero_c=true; // 0만 꽉차있으면 0출력용
@@ -233,7 +252,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			//===========================================
 			//가로축 숫자들을 안에 담아놈======================
 			if(cnt_zero_c == true && w_c==0) {
-				offG.drawString("0", board_start_x+(i+1)*xboxSize-xboxSize/2, board_start_y-20); 
+				offG.drawString("0", board_start_x+(i+1)*xboxSize-xboxSize/2, board_start_y-12); 
 			}
 			else
 				cnt_zero_c=true;
@@ -258,31 +277,52 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 	}
 	
+	public void createEndPanel() {
+		pEnd.setLayout(null);
+		pEnd.setBounds((size_clientWidth-PauseBoxWidth)/2, (size_clientHeight-PauseBoxHeight)/2, PauseBoxWidth, PauseBoxHeight);
+		pEnd.setBackground(new Color(0, 130,153,180));
+	}
+	
 	
 	
 	public void makeButtonAndEventHandle() {
+		
+		// PLAY //=====================================================
 		lab_time.setSize(size_clientWidth/5, size_clientHeight/10);
 		lab_time.setLocation(size_clientWidth/17, size_clientHeight/10);
 		lab_time.setFont(new Font("Serif",Font.PLAIN,50));
 		
 		btn_play_pause.setSize(size_clientWidth/5,size_clientHeight/10 );
 		btn_play_pause.setLocation(size_clientWidth/17,(int)(size_clientHeight/4.7));
+		//===========================================================
 		
 		
-		
-		// PAUSE//
+		// PAUSE //====================================================
 		btn_pause_back.setSize(PauseBoxWidth/2,PauseBoxHeight/5);
 		btn_pause_back.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2, (int)(PauseBoxHeight/2.3));
 		
 		btn_pause_main.setSize(PauseBoxWidth/2,PauseBoxHeight/5);
 		btn_pause_main.setLocation((PauseBoxWidth-PauseBoxWidth/2)/2,(int)(PauseBoxHeight/1.4));
-		///////////////////
+		//==============================================================
 		
 		
+		// END //=======================================================
+		btn_end_regist.setBounds((PauseBoxWidth-PauseBoxWidth/2)/2, (int)(PauseBoxHeight/7), PauseBoxWidth/2, PauseBoxHeight/5);
+		btn_end_goMain.setBounds((PauseBoxWidth-PauseBoxWidth/2)/2,(int)(PauseBoxHeight/2.3), PauseBoxWidth/2, PauseBoxHeight/7);
+		btn_end_goRank.setBounds((PauseBoxWidth-PauseBoxWidth/2)/2, (int)(PauseBoxHeight/1.4), PauseBoxWidth/2, PauseBoxHeight/10);
+		// 버튼이벤트, 리스너 나중에 추가하자.  시간만들고 랭킹짜는 함수 만든 담에 만들기.
+		//==============================================================
+		
+		
+	
 		// Listener //
 		btn_play_pause.addActionListener(this);
 		btn_pause_back.addActionListener(this);
 		btn_pause_main.addActionListener(this);
+		
+		btn_end_regist.addActionListener(this);
+		btn_end_goMain.addActionListener(this);
+		btn_end_goRank.addActionListener(this);
 		
 		
 	}
@@ -299,6 +339,17 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		}
 		else if (strCmd.equals("MAIN")) {
 			go_main();
+		}
+		
+		// end패널버튼들
+		else if(strCmd.equals("홈으로")) {
+			go_main();
+		}
+		else if(strCmd.equals("랭킹 보기")) {
+			go_rank();
+		}
+		else if(strCmd.equals("등록하기")) {
+			// 등록할 함수 생성해야함
 		}
 	}
 	
@@ -320,6 +371,15 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	void go_main() {
 		fr.goMain();
 		
+	}
+	
+	void go_end() {
+		pEnd.setVisible(true);
+		btn_play_pause.setEnabled(false);
+	}
+	
+	void go_rank() {
+		fr.goRank_inGame();
 	}
 	
 
@@ -359,8 +419,9 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 						st = userAns.toString();
 		// 정답체크 =======================================================
-						if(st.equals(Manager.manager.easy_1))
-							System.out.println("끗");
+						if(st.equals(Manager.manager.easy_1)) {
+							gameOver=true;
+						}
 						
 						
 					}

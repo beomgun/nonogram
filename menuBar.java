@@ -37,9 +37,7 @@ public class menuBar extends JMenuBar {
 	//난이도설정 메뉴바 - Start ======================================================
 	  public class MenuHandler implements ActionListener { 
 	       @Override 
-	       public void actionPerformed(ActionEvent e) { 
-	          System.out.println(e.getActionCommand() + "가 선택"); 
-	          
+	       public void actionPerformed(ActionEvent e) { 	          
 	          String str = e.getActionCommand(); 
 	          if (str.equals("Easy")) {
 	        	  Manager.manager.changeLevel(1);

@@ -16,7 +16,7 @@ public class Manager {
 	public int xSize;            // x축 박스 갯수 (길이)
 	public int ySize;            // y축 박스 개수 (길이)
 	
-	String easy_1 = 
+	String easy_2 = 
 			  "1011001111"
 			+ "0001000000"
 			+ "0001111000"
@@ -27,7 +27,18 @@ public class Manager {
 			+ "1100000000"
 			+ "1100000000"
 			+ "0100000000";
-	
+
+	String easy_1 = 
+			  "1000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000"
+			+ "0000000000";
 	public Manager() {
 		manager=this;
 		// TODO Auto-generated method stub

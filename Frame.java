@@ -95,5 +95,12 @@ public class Frame extends JFrame {
 		
 	}
 	
+	public void goRank_inGame() {
+		panel_game.setVisible(false);
+		panel_rank.setVisible(true);    //  나중에 이걸 추가해야지!
+		mb.setVisible(true);
+		
+	}
+	
 	
 }
