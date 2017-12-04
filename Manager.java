@@ -4,17 +4,13 @@ package game;
 public class Manager {
 
 	public static Manager manager;
-
-	public boolean gameIn;       // °ÔÀÓ ÇÏ°í ÀÖ´ÂÁö ¿©ºÎ È®ÀÎ
-	public boolean gameReady;    // °ÔÀÓ Ä«¿îÆ® ¼¼´ÂÁßÀÎÁö È®ÀÎ
-	public boolean gamePause;    // °ÔÀÓ ÀÏ½ÃÁ¤ÁöÁßÀÎÁö.
 		
 	public int level;
 	public int clientWidth;
 	public int clientHeight;
 	
-	public int xSize;            // xÃà ¹Ú½º °¹¼ö (±æÀÌ)
-	public int ySize;            // yÃà ¹Ú½º °³¼ö (±æÀÌ)
+	public int xSize;            // xì¶• ë°•ìŠ¤ ê°¯ìˆ˜ (ê¸¸ì´)
+	public int ySize;            // yì¶• ë°•ìŠ¤ ê°œìˆ˜ (ê¸¸ì´)
 	
 	String easy_2 = 
 			  "1011001111"
@@ -42,23 +38,17 @@ public class Manager {
 	public Manager() {
 		manager=this;
 		// TODO Auto-generated method stub
-		gameIn = false;
-		gameReady = false;
-		gamePause = false;
-		
-		
 		level = 2;
 		clientWidth = 700;
 		clientHeight = 700;
+		
 		xSize = 15;
 		ySize = 15;
 		
-		
-		
-		new Frame();           // ÃÊ±â ¼³Á¤ÈÄ Frame ¸¸µé±â·Î ÀÌµ¿
+		new Frame();           // ì´ˆê¸° ì„¤ì •í›„ Frame ë§Œë“¤ê¸°ë¡œ ì´ë™
 	}
 	
-	// ·¹º§¹Ù²Ù±â!
+	// ë ˆë²¨ë°”ê¾¸ê¸°!
 	public void changeLevel(int level) {
 		if(level == 1) {
 			this.level = 1;
