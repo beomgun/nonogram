@@ -325,6 +325,21 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
 		mousePos_X = e.getX();
 		mousePos_Y = e.getY();
 		st = userAns.toString();
@@ -372,20 +387,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			 }	
 		    }
 		
-		
 	}
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {	}
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {	}
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {	}
 
 
 	@Override
