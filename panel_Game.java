@@ -331,24 +331,48 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		int i = (mousePos_X-board_start_x)/xboxSize;
 		int j = (mousePos_Y-board_start_y)/yboxSize;
+		 if(SwingUtilities.isLeftMouseButton(e)){
+		        //my code
+			 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
+					if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
+						
+						if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+							userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
+						else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+							userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+						else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+						st = userAns.toString();
+		// Á¤´äÃ¼Å© =======================================================
+						if(st.equals(Manager.manager.easy_1))
+							System.out.println("²ý");
+						
+						
+					}
+			 }	
+		 }
+		 if(SwingUtilities.isRightMouseButton(e)){
+		        //my code
+			 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
+					if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
+						
+						if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+							userAns.replace(j*ySize+i, j*ySize+i+1, "0");				
+						else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+							userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+						else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+						st = userAns.toString();
+		// Á¤´äÃ¼Å© =======================================================
+						if(st.equals(Manager.manager.easy_1))
+							System.out.println("²ý");
+						
+						
+					}
+			 }	
+		    }
 		
-		if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
-			if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
-				
-				if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
-					userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
-				else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
-					userAns.replace(j*ySize+i, j*ySize+i+1, "0");
-				else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
-					userAns.replace(j*ySize+i, j*ySize+i+1, "2");
-				st = userAns.toString();
-// Á¤´äÃ¼Å© =======================================================
-				if(st.equals(Manager.manager.easy_1))
-					System.out.println("²ý");
-				
-				
-			}
-		}	
+		
 	}
 
 
