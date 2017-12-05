@@ -3,7 +3,24 @@ package game;
 public class Manager_gameBoard {
 	public static Manager_gameBoard gmanager;
 	
-	String easy_1 = //¸®º»  http://nemonemologic.com/play_logic.php?quid=4388&page=10&size=10
+	String test =	// normal mode í´ë¦¬ì–´ í™”ë©´ í…ŒìŠ¤íŠ¸ìš©
+			  "100000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000"
+			+ "000000000000000";
+	
+	String easy_1 = //ë¦¬ë³¸  http://nemonemologic.com/play_logic.php?quid=4388&page=10&size=10
 			  "0000000000"
 			+ "0100000010"
 			+ "0110000110"
@@ -14,7 +31,7 @@ public class Manager_gameBoard {
 			+ "0110000110"
 			+ "0100000010"
 			+ "0000000000";
-	String easy_2 = //Áã  http://nemonemologic.com/play_logic.php?quid=5058&page=0&size=10
+	String easy_2 = //ì¥  http://nemonemologic.com/play_logic.php?quid=5058&page=0&size=10
 			  "1110000111"
 			+ "1010000101"
 			+ "1101111011"
@@ -26,7 +43,7 @@ public class Manager_gameBoard {
 			+ "1001111001"
 			+ "0100000001";
 
-	String easy_3 = //À½Ç¥  http://nemonemologic.com/play_logic.php?quid=4871&page=3&size=10
+	String easy_3 = //ìŒí‘œ  http://nemonemologic.com/play_logic.php?quid=4871&page=3&size=10
 			  "0000010000"
 			+ "0000011000"
 			+ "0000010100"
@@ -38,7 +55,7 @@ public class Manager_gameBoard {
 			+ "0111110000"
 			+ "0011100000";
 	
-	String normal_1 = //Æ¼Æ÷Æ® & ÁÖÀüÀÚ http://nemonemologic.com/play_logic.php?quid=5024&page=0&size=15
+	String normal_1 = //í‹°í¬íŠ¸ & ì£¼ì „ì http://nemonemologic.com/play_logic.php?quid=5024&page=0&size=15
 			  "000000111111000"
 			+ "000001000000100"
 			+ "000001001100100"
@@ -55,7 +72,7 @@ public class Manager_gameBoard {
 			+ "101000111111000"
 			+ "111000111111000";
 	
-	String normal_2 = //´«¼ÛÀÌ http://nemonemologic.com/play_logic.php?quid=5007&page=1&size=15
+	String normal_2 = //ëˆˆì†¡ì´ http://nemonemologic.com/play_logic.php?quid=5007&page=1&size=15
 			  "100000010000001"
 			+ "011001111100110"
 			+ "011000010000110"
@@ -71,7 +88,7 @@ public class Manager_gameBoard {
 			+ "011000010000110"
 			+ "011001111100110"
 			+ "100000010000001";
-	String normal_3 = //¿ìÁÖ¼± http://nemonemologic.com/play_logic.php?quid=4862&page=3&size=15
+	String normal_3 = //ìš°ì£¼ì„  http://nemonemologic.com/play_logic.php?quid=4862&page=3&size=15
 			  "000011101110000"
 			+ "001001000100100"
 			+ "011101010001110"
@@ -94,8 +111,8 @@ public class Manager_gameBoard {
 		gmanager=this;
 	}
 	
-	public void selectBoard(int level) {  // ·¹º§À» ¹Ş¾Æ¼­ ·£´ıÀ¸·Î game board ¼¼ÆÃ.
-		int n = (int) (Math.random() * 2) + 1;   // 1~3 »çÀÌÀÇ ·£´ı ¼ıÀÚ ±¸ÇÏ±â (º¸µå¼±ÅÃ¿ë)   .. ³­ÀÌµµº°·Î 3°³¾¿¸¸±¸Çö¿¹Á¤   Å×½ºÆ®¿ëÀ¸·Î ÇöÀç easy 2°³¸¸±¸Çö.
+	public void selectBoard(int level) {  // ë ˆë²¨ì„ ë°›ì•„ì„œ ëœë¤ìœ¼ë¡œ game board ì„¸íŒ….
+		int n = (int) (Math.random() * 2) + 1;   // 1~3 ì‚¬ì´ì˜ ëœë¤ ìˆ«ì êµ¬í•˜ê¸° (ë³´ë“œì„ íƒìš©)   .. ë‚œì´ë„ë³„ë¡œ 3ê°œì”©ë§Œêµ¬í˜„ì˜ˆì •   í…ŒìŠ¤íŠ¸ìš©ìœ¼ë¡œ í˜„ì¬ easy 2ê°œë§Œêµ¬í˜„.
 	    
 		if(level==1) {
 			switch(n) {
