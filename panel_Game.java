@@ -58,10 +58,11 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	public panel_Game(Frame fr) {
 		this.fr = fr;
+		Manager.manager.selectBoard(Manager.manager.level);
 		startTime = System.currentTimeMillis(); 
 		xSize=Manager.manager.xSize;
 		ySize = Manager.manager.ySize;
-		ans = Manager.manager.easy_1;
+		ans = Manager.manager.gameboard;
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
@@ -151,11 +152,12 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 		
 		
-		if(gameOver==true && endCnt==false) {
-			lab_time.setVisible(false);
-			endTime = (int)timeChk;                  // endTime을 기록으로 저장하면 됨.
-			System.out.println(endTime);
-			endCnt=true;
+		if(gameOver==true ) {
+			if(endCnt==false) {
+				lab_time.setVisible(false);
+				endTime = (int)timeChk;                  // endTime을 기록으로 저장하면 됨.
+				endCnt=true;
+			}
 			go_end();
 		}
 		else {                              // 게임이 끝나면 멈춰야할것들.(끝나기 전에만 돌아가야하는 것들)
@@ -294,6 +296,8 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		}
 		
 	
+		
+		
 		
 		
 		g.drawImage(offScr, 0, 0, this);
@@ -454,7 +458,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 						st = userAns.toString();
 		// 정답체크 =======================================================
-						if(st.equals(Manager.manager.easy_1)) {
+						if(st.equals(Manager.manager.gameboard)) {
 							gameOver=true;
 						}
 						
@@ -475,8 +479,8 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 						st = userAns.toString();
 		// 정답체크 =======================================================
-						if(st.equals(Manager.manager.easy_1))
-							System.out.println("끗");
+						if(st.equals(Manager.manager.gameboard))
+							gameOver=true;
 						
 						
 					}
@@ -513,4 +517,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		else
 			mouseMoved = false;
 	}
+	
+
+	
+	
+
+	
 }
