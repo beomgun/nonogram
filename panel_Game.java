@@ -66,7 +66,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
-				userAns.append("0");
+				userAns.append("2");
 				st = userAns.toString();
 			}
 		}
@@ -200,7 +200,20 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 					}
 					else if(st.charAt(j*ySize+i) == '1') {  // 채운칸
 						offG.setColor(Color.BLACK);
-						offG.fillRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
+						if((i+1)%5 ==0){
+							if((j+1)%5 ==0)
+								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-4 , yboxSize-4);
+							else
+								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-4 , yboxSize-3);
+						}
+						else {
+							if((j+1)%5 ==0)
+								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-3 , yboxSize-4);
+							else
+								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-3 , yboxSize-3);
+							
+						}
+
 					}
 					else if (st.charAt(j*ySize+i) == '0') {
 						offG.setColor(Color.BLACK);
@@ -423,19 +436,13 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-		
-	}
-
+	public void mouseClicked(MouseEvent e) {	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {	}
 
-
 	@Override
 	public void mouseExited(MouseEvent e) {	}
-
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -461,8 +468,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 						if(st.equals(Manager_gameBoard.gmanager.gameboard)) {
 							gameOver=true;
 						}
-						
-						
+							
 					}
 			 }	
 		 }
@@ -486,15 +492,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 					}
 			 }	
 		    }
-		
 	}
-
-
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {	}
-
-
-
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -517,10 +518,4 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		else
 			mouseMoved = false;
 	}
-	
-
-	
-	
-
-	
 }
