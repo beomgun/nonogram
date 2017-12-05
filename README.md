@@ -2,8 +2,8 @@
   + Manager.java 최초실행.
 ## 구성
 * Manager
-   > * Manager.java            - default setting
-   > * Manager_gameBoard.java  - gameboard setting
+    > * Manager.java            - default setting
+    > * Manager_gameBoard.java  - gameboard setting
 * JFrame 
    > * Frame.java
 * JPanel  
