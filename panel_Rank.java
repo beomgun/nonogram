@@ -19,10 +19,6 @@ public class panel_Rank extends JPanel implements ActionListener {
 	private JPanel panel_hard = new JPanel();
 	
 	private JLabel label_rank, label_name, label_time;
-	private JLabel label_1_rank, label_1_name, label_1_time;
-	private JLabel label_2_rank, label_2_name, label_2_time;
-	private JLabel label_3_rank, label_3_name, label_3_time;
-	
 	
 	int size_clientWidth=700, size_clientHeight=700;
 	int rankBox_width,rankBox_Height;
@@ -62,7 +58,7 @@ public class panel_Rank extends JPanel implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		String strCmd = e.getActionCommand(); // Å¬¸¯µÈ ¹öÆ°ÀÇ ÀÌ¸§À» ÀúÀå
+		String strCmd = e.getActionCommand(); // í´ë¦­ëœ ë²„íŠ¼ì˜ ì´ë¦„ì„ ì €ì¥
 		
 		if (strCmd.equals("BACK")) {
 			fr.goRMain();
@@ -109,11 +105,9 @@ public class panel_Rank extends JPanel implements ActionListener {
 		btn_Rank_Back.setSize(170,80 );
 		btn_Rank_Back.setLocation(470,60);
 		btn_Rank_Back.addActionListener(this);
-		
-		
 	}
 
-	// ÀÌ°Ê¸¸µéÀÚ 
+	// ì´ê±ºë§Œë“¤ì 
 	public void createRankLabel() {
 		label_rank = new JLabel("RANK");
 		label_rank.setBounds(150, 160, 100, 100);
@@ -123,19 +117,10 @@ public class panel_Rank extends JPanel implements ActionListener {
 		add(label_name);
 		
 		label_time = new JLabel("TIME");
+		label_time.setBounds(350, 160, 100, 100);
+		add(label_time);
 		
-		label_1_rank = new JLabel("1"); 
-		label_1_rank.setBounds(150, 260, 100, 100);
-		add(label_1_rank);
 		
-		label_1_name = new JLabel(); 
-		label_1_time = new JLabel();
-		label_2_rank = new JLabel("2"); 
-		label_2_name = new JLabel(); 
-		label_2_time = new JLabel();
-		label_3_rank = new JLabel("3"); 
-		label_3_name = new JLabel(); 
-		label_3_time = new JLabel();
 	}
 	
 	
