@@ -58,11 +58,11 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	public panel_Game(Frame fr) {
 		this.fr = fr;
-		Manager.manager.selectBoard(Manager.manager.level);
+		Manager_gameBoard.gmanager.selectBoard(Manager.manager.level);
 		startTime = System.currentTimeMillis(); 
 		xSize=Manager.manager.xSize;
 		ySize = Manager.manager.ySize;
-		ans = Manager.manager.gameboard;
+		ans = Manager_gameBoard.gmanager.gameboard;
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
@@ -458,7 +458,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 						st = userAns.toString();
 		// 정답체크 =======================================================
-						if(st.equals(Manager.manager.gameboard)) {
+						if(st.equals(Manager_gameBoard.gmanager.gameboard)) {
 							gameOver=true;
 						}
 						
@@ -479,7 +479,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 						st = userAns.toString();
 		// 정답체크 =======================================================
-						if(st.equals(Manager.manager.gameboard))
+						if(st.equals(Manager_gameBoard.gmanager.gameboard))
 							gameOver=true;
 						
 						
