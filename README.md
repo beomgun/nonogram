@@ -10,10 +10,14 @@
  > * 게임보드에서 마우스 오른쪽 클릭시 바로 X 생성되게 함
  > * 게임 중 일시정지 기능 (일시정지시 타이머도 멈춤)
  > * 랭킹 구현 (랭킹에서 menubar로 보고싶은 난이도의 랭킹 확인가능)
+* 랭킹 등록
+ > * 난이도 별로 3등 이내 진입시 랭킹 등록 가능.
+ > * 랭킹 등록시 글자수 5개 제한.
 ## 구성
 * Manager
-    > * Manager.java            - default setting
+    > * Manager.java  (Main)    - default setting
     > * Manager_gameBoard.java  - gameboard random setting
+    > * Manager_ranking         - ranking update
 * JFrame 
    > * Frame.java
 * JPanel  
