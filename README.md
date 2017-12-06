@@ -15,19 +15,19 @@
  > * 랭킹 등록시 글자수 5개 제한.
 ## 구성
 * Manager
-     > * Manager.java  (Main)    - default setting
-     > * Manager_gameBoard.java  - gameboard random setting
-     > * Manager_ranking         - ranking update
+ > * Manager.java  (Main)    - default setting
+ > * Manager_gameBoard.java  - gameboard random setting
+ > * Manager_ranking         - ranking update
 * JFrame 
-   > * Frame.java
+ > * Frame.java
 * JPanel  
-   > * panel_Main.java
-   > * panel_Game.java
-   > * panel_Rank.java
+ > * panel_Main.java
+ > * panel_Game.java
+ > * panel_Rank.java
 * JMenubar 
-   > * menuBar.java
+ > * menuBar.java
 * MouseListener
-    > * Listener_btnChange.java  - 버튼위에 마우스 올릴경우 이미지 바꿔줌.
+ > * Listener_btnChange.java  - 버튼위에 마우스 올릴경우 이미지 바꿔줌.
 ## 요약   
 * Manager.java 실행시 default 세팅후 Frame.java 실행
 * Frame.java에 Panel들과, Menubar를 add , 최초 panel_Main 보여줌
