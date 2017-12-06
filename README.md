@@ -15,9 +15,9 @@
  > * 랭킹 등록시 글자수 5개 제한.
 ## 구성
 * Manager
-    > * Manager.java  (Main)    - default setting
-    > * Manager_gameBoard.java  - gameboard random setting
-    > * Manager_ranking         - ranking update
+     > * Manager.java  (Main)    - default setting
+     > * Manager_gameBoard.java  - gameboard random setting
+     > * Manager_ranking         - ranking update
 * JFrame 
    > * Frame.java
 * JPanel  
