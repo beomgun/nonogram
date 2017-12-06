@@ -3,6 +3,23 @@ package game;
 public class Manager_gameBoard {
 	public static Manager_gameBoard gmanager;
 	
+	
+	String test =	  "100000000000000"// normal
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000"
+					+ "000000000000000";
+	
 	String easy_1 = //리본  http://nemonemologic.com/play_logic.php?quid=4388&page=10&size=10
 			  "0000000000"
 			+ "0100000010"
@@ -71,6 +88,7 @@ public class Manager_gameBoard {
 			+ "011000010000110"
 			+ "011001111100110"
 			+ "100000010000001";
+	
 	String normal_3 = //우주선 http://nemonemologic.com/play_logic.php?quid=4862&page=3&size=15
 			  "000011101110000"
 			+ "001001000100100"
@@ -87,6 +105,7 @@ public class Manager_gameBoard {
 			+ "000011111110000"
 			+ "000110111011000"
 			+ "000110111011000";
+	
 	String hard_1 = //불금 http://nemonemologic.com/play_logic.php?quid=3569&page=25&size=20
 			  "00111110000000110000" //1
 			+ "00111110000010110100" //2
@@ -108,6 +127,7 @@ public class Manager_gameBoard {
 			+ "11011010100000010000" //18
 			+ "10011000100001010100" //19
 			+ "11111111100111111111";//20
+	
 	String hard_2 = //체리 http://nemonemologic.com/play_logic.php?quid=4561&page=7&size=20
 			  "00000000000000000111" //1
 			+ "00011100000111111111" //2
@@ -129,6 +149,7 @@ public class Manager_gameBoard {
 			+ "11111111110011111110" //18
 			+ "01111111100001111100" //19
 			+ "00111111000000000000";//20
+	
 	String hard_3 = //만년필 http://nemonemologic.com/play_logic.php?quid=4524&page=8&size=20
 			  "00000000000001101111" //1
 			+ "00000000000011011111" //2
@@ -150,6 +171,7 @@ public class Manager_gameBoard {
 			+ "11111100000111001000" //18
 			+ "11111111111110111111" //19
 			+ "00000000000000111100";//20
+	
 	String gameboard;   
 
 	public Manager_gameBoard() {
@@ -160,47 +182,50 @@ public class Manager_gameBoard {
 	public void selectBoard(int level) {  // 레벨을 받아서 랜덤으로 game board 세팅.
 		int n = (int) (Math.random() * 2) + 1;   // 1~3 사이의 랜덤 숫자 구하기 (보드선택용)   .. 난이도별로 3개씩만구현예정   테스트용으로 현재 easy 2개만구현.
 	    
-		if(level==1) {
-			switch(n) {
-				case 1:
-					gameboard = easy_1;
-					break;
-				case 2:
-					gameboard = easy_2;
-					break;
-				case 3:
-					gameboard = easy_3;
-					break;
-			}
-			
-		}
-		else if(level==2) {
-			switch(n) {
-				case 1:
-					gameboard = normal_1;
-					break;
-				case 2:
-					gameboard = normal_2;
-					break;
-				case 3:
-					gameboard = normal_3;
-					break;
-			}
-			
-		}
-		else if(level==3) {
-			switch(n) {
-				case 1:
-					gameboard = hard_1;
-					break;
-				case 2:
-					gameboard = hard_2;
-					break;
-				case 3:
-					gameboard = hard_3;
-					break;
-			}
-		}
+		
+		gameboard = test;
+		
+//		if(level==1) {
+//			switch(n) {
+//				case 1:
+//					gameboard = easy_1;
+//					break;
+//				case 2:
+//					gameboard = easy_2;
+//					break;
+//				case 3:
+//					gameboard = easy_3;
+//					break;
+//			}
+//			
+//		}
+//		else if(level==2) {
+//			switch(n) {
+//				case 1:
+//					gameboard = normal_1;
+//					break;
+//				case 2:
+//					gameboard = normal_2;
+//					break;
+//				case 3:
+//					gameboard = normal_3;
+//					break;
+//			}
+//			
+//		}
+//		else if(level==3) {
+//			switch(n) {
+//				case 1:
+//					gameboard = hard_1;
+//					break;
+//				case 2:
+//					gameboard = hard_2;
+//					break;
+//				case 3:
+//					gameboard = hard_3;
+//					break;
+//			}
+//		}
 		
 	}
 	

@@ -47,14 +47,16 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	int endTime =9999999;                // 게임 클리어한 시간 저장하는 변수. 
 	boolean endCnt=false;
-	
+
+	JLabel pauseBg = new JLabel();   // 일시정지화면 배경화면
 	
 	int mousePos_X, mousePos_Y;
 	
 	Image offScr;
 	Graphics offG;  
-	
-	
+
+	Listener_btnChange btnListener = new Listener_btnChange();   // 버튼에 마우스올렸을때 바뀌게하는 리스너
+	Insets m = new Insets(0, 14, 0, 0);
 	
 	public panel_Game(Frame fr) {
 		this.fr = fr;
@@ -66,17 +68,33 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
-				userAns.append("2");
+				userAns.append("0");
 				st = userAns.toString();
 			}
 		}
 		
-		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
+		btn_pause_main.setIcon(new ImageIcon("퍼즈에서 메인.png"));
+		btn_pause_main.setMargin(m);
+		btn_pause_main.addMouseListener(btnListener);
+		btn_pause_main.setBorderPainted(false);
+		btn_pause_back.setIcon(new ImageIcon("퍼즈에서 뒤로.png"));
+		btn_pause_back.setMargin(m);
+		btn_pause_back.addMouseListener(btnListener);
+		btn_pause_back.setBorderPainted(false);
 		
+		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
 		setLayout(null);
+		
+
+		btn_play_pause.setIcon(new ImageIcon("pause.png"));
+		btn_play_pause.setMargin(m);
+		btn_play_pause.addMouseListener(btnListener);
+		btn_play_pause.setBorderPainted(false);
+		
 		add(pPause);     
 		pPause.add(btn_pause_main);
 		pPause.add(btn_pause_back);
+		pPause.add(pauseBg);
 		pPause.setVisible(false);
 		
 		add(pEnd);
@@ -183,7 +201,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 				int i = (mousePos_X-board_start_x)/xboxSize;
 				int j = (mousePos_Y-board_start_y)/yboxSize;
-				offG.setColor(new Color(0, 0, 0, 40));
+				offG.setColor(new Color(13, 62, 163 , 40));
 				offG.fillRect( board_start_x -size_clientWidth/6, board_start_y + j*yboxSize, size_clientWidth/6 +(i+1)*xboxSize , yboxSize);
 				offG.fillRect(board_start_x + i*xboxSize,board_start_y-size_clientHeight/6,xboxSize,size_clientHeight/6 + (j+1)*yboxSize);
 				
@@ -341,10 +359,13 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	
 	public void createPausePanel() {
+
+		pauseBg.setBounds(0, 0, PauseBoxWidth, PauseBoxHeight);   // pausePanel 의 배경이미지
+		pauseBg.setIcon(new ImageIcon("정지화면.png"));
+				
 		pPause.setLayout(null);
 		pPause.setSize(PauseBoxWidth,PauseBoxHeight);
 		pPause.setLocation((size_clientWidth-PauseBoxWidth)/2,(size_clientHeight-PauseBoxHeight)/2);
-		pPause.setBackground(Color.YELLOW);
 		
 	}
 	
@@ -361,9 +382,9 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		// PLAY //=====================================================
 		lab_time.setSize(size_clientWidth/5, size_clientHeight/10);
 		lab_time.setLocation(size_clientWidth/17, size_clientHeight/10);
-		lab_time.setFont(new Font("Serif",Font.PLAIN,40));
+		lab_time.setFont(new Font("Tekton Pro Ext",Font.PLAIN,30));
 		
-		btn_play_pause.setSize(size_clientWidth/5,size_clientHeight/10 );
+		btn_play_pause.setSize(size_clientWidth/5-20,size_clientHeight/10 );
 		btn_play_pause.setLocation(size_clientWidth/17,(int)(size_clientHeight/4.7));
 		//===========================================================
 		
@@ -450,7 +471,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	void go_end() {
 		pEnd.setVisible(true);
-		btn_play_pause.setEnabled(false);
+		btn_play_pause.setVisible(false);
 	}
 	
 	void go_rank() {

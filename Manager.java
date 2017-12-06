@@ -9,11 +9,16 @@ public class Manager {
 	public int clientWidth;
 	public int clientHeight;
 	
-	public int xSize;            // xì¶• ë°•ìŠ¤ ê°¯ìˆ˜ (ê¸¸ì´)
-	public int ySize;            // yì¶• ë°•ìŠ¤ ê°œìˆ˜ (ê¸¸ì´)
+	public int xSize;            // xÃà ¹Ú½º °¹¼ö (±æÀÌ)
+	public int ySize;            // yÃà ¹Ú½º °³¼ö (±æÀÌ)
+	
+	String rank_name[] = new String[3];     //·©Å·´ã´ÂÅë
+	int rank_time[] = new int[3];            // ºĞ*60 + ÃÊ = time     
+	
 	
 	
 	public Manager() {
+		System.out.println(rank_time[1]);
 		new Manager_gameBoard();
 		manager=this;
 		// TODO Auto-generated method stub
@@ -24,10 +29,10 @@ public class Manager {
 		xSize = 15;
 		ySize = 15;
 		
-		new Frame();           // ì´ˆê¸° ì„¤ì •í›„ Frame ë§Œë“¤ê¸°ë¡œ ì´ë™
+		new Frame();           // ÃÊ±â ¼³Á¤ÈÄ Frame ¸¸µé±â·Î ÀÌµ¿
 	}
 	
-	// ë ˆë²¨ë°”ê¾¸ê¸°!
+	// ·¹º§¹Ù²Ù±â!
 	public void changeLevel(int level) {
 		if(level == 1) {
 			this.level = 1;

@@ -13,10 +13,11 @@ public class panel_Main extends JPanel implements ActionListener{
 	Frame fr;
 	JPanel panel_fade = new panel_FadeIO();
 	
-	ImageIcon imgIco = new ImageIcon("111.png","사진");
+	ImageIcon imgIco = new ImageIcon("배경.png","사진");
 	Image img = imgIco.getImage();
 
-	
+	Listener_btnChange btnListener = new Listener_btnChange();   // 버튼에 마우스올렸을때 바뀌게하는 리스너
+	Insets m = new Insets(0, 14, 0, 0);
 	
 	
 	
@@ -28,17 +29,31 @@ public class panel_Main extends JPanel implements ActionListener{
 	int size_main_btn_x = 100;
 	int size_main_btn_y = 80;
 	
-	
+
 	
 	
 	
 	public panel_Main(Frame fr) {
 		this.fr = fr;
 		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
+		setBackground(Color.WHITE);
+		btn_main_Start.setIcon(new ImageIcon("게임시작.png"));
+		btn_main_Start.setMargin(m);
+		btn_main_Start.setBorderPainted(false);
+		btn_main_Start.addMouseListener(btnListener);
+		btn_main_Rank.setIcon(new ImageIcon("랭킹보기.png"));
+		btn_main_Rank.setMargin(m);
+		btn_main_Rank.addMouseListener(btnListener);
+		btn_main_Rank.setBorderPainted(false);
+		btn_main_Exit.setIcon(new ImageIcon("게임종료.png"));
+		btn_main_Exit.setMargin(m);
+		btn_main_Exit.addMouseListener(btnListener);
+		btn_main_Exit.setBorderPainted(false);
+		
+		
 		setLayout(null);
 		add(btn_main_Start);
 		add(btn_main_Rank);
-	//	btn_main_Rank.setEnabled(false);     // 오픈준비중입니다!
 		add(btn_main_Exit);
 	}
 	
@@ -53,7 +68,7 @@ public class panel_Main extends JPanel implements ActionListener{
 	
 		
 	public void makeButtonAndEventHandle() {
-		size_main_btn_x = (int)(Manager.manager.clientWidth/2.8);
+		size_main_btn_x = (int)(Manager.manager.clientWidth/2.8)-11;
 		size_main_btn_y = (int)(Manager.manager.clientHeight/8.5);
 		
 		btn_main_Start.setSize(size_main_btn_x, size_main_btn_y);
