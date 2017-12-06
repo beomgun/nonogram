@@ -197,9 +197,11 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 					label_endRank.setBounds(300,150,200,200);
 					
 					label_endRank.setFont(new Font("휴먼편지체",Font.BOLD,60));
+					label_endRank.setForeground(new Color(68, 103, 151));
 					label_endRank.setHorizontalAlignment(SwingConstants.RIGHT);
 					label_endRank.setText(rank+1 + "등");
 					label_endTime.setFont(new Font("휴먼편지체",Font.BOLD,60));
+					label_endTime.setForeground(new Color(68, 103, 151));
 					label_endTime.setHorizontalAlignment(SwingConstants.RIGHT);
 					if(endTime/60==0)
 						label_endTime.setText(endTime%60 + "초" );
@@ -213,7 +215,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 				go_end();            // 등수 못들어가면 기록된시간과 못들어간다고 말해주고 main, ranking 화면으로 이동 버튼 활성화
 				offG.setColor(Color.red);
 				offG.setFont(new Font("휴먼편지체",Font.BOLD,25));
-				offG.drawString("랭킹 등록실패!", 40, 170);
+				offG.drawString("랭킹 진입실패!", 40, 170);
 			}
 		}
 		else {                              // 게임이 끝나면 멈춰야할것들.(끝나기 전에만 돌아가야하는 것들)
@@ -231,6 +233,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			String timeS = ""+timeSec;
 			if(timeSec/10 ==0)
 				timeS = "0"+timeSec;
+			lab_time.setForeground(new Color(68, 103, 151));
 			lab_time.setText(timeM+" : "+timeS);
 			
 						
@@ -501,6 +504,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			String name = "";
 			if(nameCnt==false) {
 				name = tf_end_name.getText();
+				System.out.println(name);
 				nameCnt=true;
 			}
 			Manager.manager.rk.rank_update(Manager.manager.level, rank, name, endTime);  // 등록하면서 name을 받아야함
