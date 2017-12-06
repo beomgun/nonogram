@@ -28,3 +28,7 @@
 * Manager.java 실행시 default 세팅후 Frame.java 실행
 * Frame.java에 Panel들과, Menubar를 add , 최초 panel_Main 보여줌
 * 게임으로 이동시 이전게임 초기화를 위해 이동할때마다 기존 panel_game을 remove하고 재생성후 다시 add시킴
+
+### 해야할 것
+* 랭킹패널에 기록 뜨게 만들기
+* 버튼이미지 안넣은것들 
