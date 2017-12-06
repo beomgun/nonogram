@@ -35,8 +35,8 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	JPanel pEnd = new JPanel();
 	JTextField tf_end_name = new JTextField();     // 3등이내 들어갈 시 이름입력칸
 	JButton btn_end_regist = new JButton("등록하기"); // 3등이내 들어갈 시 랭킹 등록 칸
-	JButton btn_end_goMain = new JButton("홈으로");
-	JButton btn_end_goRank = new JButton("랭킹 보기");
+	JButton btn_end_goMain = new JButton("게임끝나메인이동");
+	JButton btn_end_goRank = new JButton("게임끝나랭킹이동");
 	
 	long startTime = System.currentTimeMillis(); 
 	long timeChk;
@@ -46,9 +46,18 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	boolean pauseEnd=false;
 	
 	int endTime =9999999;                // 게임 클리어한 시간 저장하는 변수. 
+	int rank = 999;
 	boolean endCnt=false;
-
+	boolean regiCnt=false;            
+	boolean regiChk=false;            // 랭킹등록완료시 시간밑에 보여주게함
+	boolean nameCnt=false;             // Cnt들은 반복 안되게 막아주는것들임.
+			
 	JLabel pauseBg = new JLabel();   // 일시정지화면 배경화면
+
+	JLabel endBg = new JLabel();     // 끝남화면 배경화면
+	JLabel label_endTime = new JLabel();
+	JLabel label_endRank = new JLabel();
+	
 	
 	int mousePos_X, mousePos_Y;
 	
@@ -57,6 +66,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 	Listener_btnChange btnListener = new Listener_btnChange();   // 버튼에 마우스올렸을때 바뀌게하는 리스너
 	Insets m = new Insets(0, 14, 0, 0);
+	
+	
+	
+	
 	
 	public panel_Game(Frame fr) {
 		this.fr = fr;
@@ -72,24 +85,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 				st = userAns.toString();
 			}
 		}
-		
-		btn_pause_main.setIcon(new ImageIcon("퍼즈에서 메인.png"));
-		btn_pause_main.setMargin(m);
-		btn_pause_main.addMouseListener(btnListener);
-		btn_pause_main.setBorderPainted(false);
-		btn_pause_back.setIcon(new ImageIcon("퍼즈에서 뒤로.png"));
-		btn_pause_back.setMargin(m);
-		btn_pause_back.addMouseListener(btnListener);
-		btn_pause_back.setBorderPainted(false);
+		buttonSetting();  // 버튼이미지 , 마우스올렸을때 변환하는거 세팅
 		
 		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
 		setLayout(null);
-		
-
-		btn_play_pause.setIcon(new ImageIcon("pause.png"));
-		btn_play_pause.setMargin(m);
-		btn_play_pause.addMouseListener(btnListener);
-		btn_play_pause.setBorderPainted(false);
 		
 		add(pPause);     
 		pPause.add(btn_pause_main);
@@ -100,9 +99,14 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		add(pEnd);
 		pEnd.add(tf_end_name);
 		pEnd.add(btn_end_regist);
-		pEnd.add(btn_end_goMain);
-		pEnd.add(btn_end_goRank);
+		pEnd.add(label_endRank);
+		pEnd.add(label_endTime);
+		pEnd.add(endBg);
 		pEnd.setVisible(false);
+		add(btn_end_goMain);
+		btn_end_goMain.setVisible(false);
+		add(btn_end_goRank);
+		btn_end_goRank.setVisible(false);
 		
 		add(lab_time);
 		add(btn_play_pause);
@@ -169,14 +173,48 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		// 라인출력 끝
 
 		
+		if(regiChk==true) {
+			offG.setColor(Color.blue);
+			offG.setFont(new Font("휴먼편지체",Font.BOLD,25));
+			offG.drawString("랭킹 등록성공!", 40, 170);
+		}
+		
+		
 		
 		if(gameOver==true ) {
 			if(endCnt==false) {
-				lab_time.setVisible(false);
 				endTime = (int)timeChk;                  // endTime을 기록으로 저장하면 됨.
+				rank= Manager.manager.rk.rank_check(Manager.manager.level, endTime);  // 랭킹체크
 				endCnt=true;
 			}
-			go_end();
+			
+			if(rank < 3) {  //랭킹체크해서 3등이내라면!
+				if(regiCnt==false) {  // 한번만 실행되게 도와주는 도구! 없으면 계속실행되서 엉킴
+					lab_time.setVisible(false);
+					btn_play_pause.setVisible(false);
+
+					label_endTime.setBounds(300,30,200,200);
+					label_endRank.setBounds(300,150,200,200);
+					
+					label_endRank.setFont(new Font("휴먼편지체",Font.BOLD,60));
+					label_endRank.setHorizontalAlignment(SwingConstants.RIGHT);
+					label_endRank.setText(rank+1 + "등");
+					label_endTime.setFont(new Font("휴먼편지체",Font.BOLD,60));
+					label_endTime.setHorizontalAlignment(SwingConstants.RIGHT);
+					if(endTime/60==0)
+						label_endTime.setText(endTime%60 + "초" );
+					else	
+						label_endTime.setText(endTime/60 +"분 "+endTime%60 + "초" );
+					pEnd.setVisible(true);
+					regiCnt=true;
+				}
+			}
+			else{
+				go_end();            // 등수 못들어가면 기록된시간과 못들어간다고 말해주고 main, ranking 화면으로 이동 버튼 활성화
+				offG.setColor(Color.red);
+				offG.setFont(new Font("휴먼편지체",Font.BOLD,25));
+				offG.drawString("랭킹 등록실패!", 40, 170);
+			}
 		}
 		else {                              // 게임이 끝나면 멈춰야할것들.(끝나기 전에만 돌아가야하는 것들)
 			//시간 체크
@@ -208,44 +246,45 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 				repaint();
 			}
 			// 휴...
-			
-			// 클릭하면 안에 색깔 바뀜 
-			for(int i=0; i<xSize; i++) {
-				for(int j=0; j<ySize; j++) {
-					if(st.charAt(j*ySize+i) == '2') {  // 빈칸
-						offG.setColor(Color.BLACK);
-						offG.drawRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
-					}
-					else if(st.charAt(j*ySize+i) == '1') {  // 채운칸
-						offG.setColor(Color.BLACK);
-						if((i+1)%5 ==0){
-							if((j+1)%5 ==0)
-								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-4 , yboxSize-4);
-							else
-								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-4 , yboxSize-3);
-						}
-						else {
-							if((j+1)%5 ==0)
-								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-3 , yboxSize-4);
-							else
-								offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-3 , yboxSize-3);
-							
-						}
-
-					}
-					else if (st.charAt(j*ySize+i) == '0') {
-						offG.setColor(Color.BLACK);
-						offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + (j+1)*yboxSize);
-						offG.drawLine(board_start_x+i*xboxSize, board_start_y + (j+1)*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + j*yboxSize);
-					}
-		
-					repaint();
-				}
-				
-			}
-			//====================================================
 		}
+		
+		// 클릭하면 안에 색깔 바뀜 
+		for(int i=0; i<xSize; i++) {
+			for(int j=0; j<ySize; j++) {
+				if(st.charAt(j*ySize+i) == '2') {  // 빈칸
+					offG.setColor(Color.BLACK);
+					offG.drawRect( board_start_x+i*xboxSize, board_start_y + j*yboxSize,xboxSize , yboxSize);
+				}
+				else if(st.charAt(j*ySize+i) == '1') {  // 채운칸
+					offG.setColor(Color.BLACK);
+					if((i+1)%5 ==0){
+						if((j+1)%5 ==0)
+							offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-4 , yboxSize-4);
+						else
+							offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-4 , yboxSize-3);
+					}
+					else {
+						if((j+1)%5 ==0)
+							offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-3 , yboxSize-4);
+						else
+							offG.fillRect( board_start_x+i*xboxSize+2, board_start_y+2 + j*yboxSize,xboxSize-3 , yboxSize-3);
+						
+					}
+
+				}
+				else if (st.charAt(j*ySize+i) == '0') {
+					offG.setColor(Color.BLACK);
+					offG.drawLine(board_start_x+i*xboxSize, board_start_y + j*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + (j+1)*yboxSize);
+					offG.drawLine(board_start_x+i*xboxSize, board_start_y + (j+1)*yboxSize,board_start_x+(i+1)*xboxSize, board_start_y + j*yboxSize);
+				}
+	
+				repaint();
+			}
 			
+		}
+		//====================================================
+		
+		offG.setColor(Color.black);
 		// 좌측 위측 숫자 나오게 
 		int cnt_r = 0, cnt_c=0; // 1갯수세는 변수
 		boolean cnt_zero_r =true, cnt_zero_c=true; // 0만 꽉차있으면 0출력용
@@ -370,6 +409,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	}
 	
 	public void createEndPanel() {
+
+		endBg.setBounds(0, 0, PauseBoxWidth, PauseBoxHeight);   // endPanel 의 배경이미지
+		endBg.setIcon(new ImageIcon("끝남화면.png"));
+		
 		pEnd.setLayout(null);
 		pEnd.setBounds((size_clientWidth-PauseBoxWidth)/2, (size_clientHeight-PauseBoxHeight)/2, PauseBoxWidth, PauseBoxHeight);
 		pEnd.setBackground(new Color(0, 130,153,180));
@@ -399,9 +442,19 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		
 		// END //=======================================================
-		btn_end_regist.setBounds((PauseBoxWidth-PauseBoxWidth/2)/2, (int)(PauseBoxHeight/7), PauseBoxWidth/2, PauseBoxHeight/5);
-		btn_end_goMain.setBounds((PauseBoxWidth-PauseBoxWidth/2)/2,(int)(PauseBoxHeight/2.3), PauseBoxWidth/2, PauseBoxHeight/7);
-		btn_end_goRank.setBounds((PauseBoxWidth-PauseBoxWidth/2)/2, (int)(PauseBoxHeight/1.4), PauseBoxWidth/2, PauseBoxHeight/10);
+		
+		tf_end_name.setBounds(85, 400, 300, 70);
+		tf_end_name.addKeyListener(new KeyAdapter() {        // 랭킹에 넣을 글자수 제한
+			   public void keyTyped(KeyEvent ke) {
+			    JTextField src = (JTextField) ke.getSource();
+			    if(src.getText().length()>=5) ke.consume();
+			   }
+			  });
+		tf_end_name.setFont(new Font("휴먼편지체",Font.BOLD,56));
+		btn_end_regist.setBounds(420, 400, 90, 70);
+		
+		btn_end_goRank.setBounds(250,50, 145, 59);
+		btn_end_goMain.setBounds(450, 50, 145, 59);
 		// 버튼이벤트, 리스너 나중에 추가하자.  시간만들고 랭킹짜는 함수 만든 담에 만들기.
 		//==============================================================
 		
@@ -438,14 +491,26 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		}
 		
 		// end패널버튼들
-		else if(strCmd.equals("홈으로")) {
+		else if(strCmd.equals("게임끝나메인이동")) {
 			go_main();
 		}
-		else if(strCmd.equals("랭킹 보기")) {
+		else if(strCmd.equals("게임끝나랭킹이동")) {
 			go_rank();
 		}
 		else if(strCmd.equals("등록하기")) {
+			String name = "";
+			if(nameCnt==false) {
+				name = tf_end_name.getText();
+				nameCnt=true;
+			}
+			Manager.manager.rk.rank_update(Manager.manager.level, rank, name, endTime);  // 등록하면서 name을 받아야함
+			// 등록끝내면 다시 판 보여주고 어디로갈건지 정해야지!
+			lab_time.setVisible(true);
+			btn_end_goMain.setVisible(true);
+			btn_end_goRank.setVisible(true);
+			pEnd.setVisible(false);
 			// 등록할 함수 생성해야함
+			regiChk = true;
 		}
 	}
 	
@@ -469,21 +534,69 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 	}
 	
+	
 	void go_end() {
-		pEnd.setVisible(true);
+		btn_end_goMain.setVisible(true);
+		btn_end_goRank.setVisible(true);
 		btn_play_pause.setVisible(false);
 	}
+	
+	
 	
 	void go_rank() {
 		fr.goRank_inGame();
 	}
 	
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
+	void buttonSetting() {
+		// pause 화면 세팅 =======================================
+		btn_pause_main.setIcon(new ImageIcon("퍼즈에서 메인.png"));
+		btn_pause_main.setMargin(m);
+		btn_pause_main.addMouseListener(btnListener);
+		btn_pause_main.setBorderPainted(false);
+		btn_pause_back.setIcon(new ImageIcon("퍼즈에서 뒤로.png"));
+		btn_pause_back.setMargin(m);
+		btn_pause_back.addMouseListener(btnListener);
+		btn_pause_back.setBorderPainted(false);
+		// =====================================================
 		
+		// play 화면 세팅 =========================================
+		btn_play_pause.setIcon(new ImageIcon("pause.png"));
+		btn_play_pause.setMargin(m);
+		btn_play_pause.addMouseListener(btnListener);
+		btn_play_pause.setBorderPainted(false);
+		// =====================================================
+		
+		// end 화면 세팅 ==========================================
+		
+		btn_end_goMain.setIcon(new ImageIcon("끝날때 메인.png"));
+		btn_end_goMain.setMargin(m);
+		btn_end_goMain.addMouseListener(btnListener);
+		btn_end_goMain.setBorderPainted(false);
+		
+		btn_end_goRank.setIcon(new ImageIcon("랭킹보기_끝남화면.png"));
+		btn_end_goRank.setMargin(m);
+		btn_end_goRank.addMouseListener(btnListener);
+		btn_end_goRank.setBorderPainted(false);
+		
+//		btn_end_regist.setIcon(new ImageIcon("pause.png"));      // 랭킹등록버튼
+//		btn_end_regist.setMargin(m);
+//		btn_end_regist.addMouseListener(btnListener);
+//		btn_end_regist.setBorderPainted(false);
+		
+		// =====================================================
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {}
 
 
 	@Override
@@ -496,53 +609,56 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
 		mousePos_X = e.getX();
 		mousePos_Y = e.getY();
 		st = userAns.toString();
 		
-		int i = (mousePos_X-board_start_x)/xboxSize;
-		int j = (mousePos_Y-board_start_y)/yboxSize;
-		 if(SwingUtilities.isLeftMouseButton(e)){
-		        //my code
-			 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
-					if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
-						
-						if(st.charAt(j*ySize+i) == '2')      // 빈칸
-							userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
-						else if(st.charAt(j*ySize+i) == '1')   // 꽉채운 칸
-							userAns.replace(j*ySize+i, j*ySize+i+1, "0");
-						else if(st.charAt(j*ySize+i) == '0')   // X자 칸
-							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
-						st = userAns.toString();
-		// 정답체크 =======================================================
-						if(st.equals(Manager_gameBoard.gmanager.gameboard)) {
-							gameOver=true;
+		if(gameOver==false) {
+			int i = (mousePos_X-board_start_x)/xboxSize;
+			int j = (mousePos_Y-board_start_y)/yboxSize;
+			 if(SwingUtilities.isLeftMouseButton(e)){
+			        //my code
+				 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
+						if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
+							
+							if(st.charAt(j*ySize+i) == '2')      // 빈칸
+								userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
+							else if(st.charAt(j*ySize+i) == '1')   // 꽉채운 칸
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // X자 칸
+								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+							st = userAns.toString();
+			// 정답체크 =======================================================
+							if(st.equals(Manager_gameBoard.gmanager.gameboard)) {
+								gameOver=true;
+							}
+							
+							
 						}
-						
-						
-					}
-			 }	
-		 }
-		 if(SwingUtilities.isRightMouseButton(e)){
-		        //my code
-			 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
-					if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
-						
-						if(st.charAt(j*ySize+i) == '2')      // 빈칸
-							userAns.replace(j*ySize+i, j*ySize+i+1, "0");				
-						else if(st.charAt(j*ySize+i) == '1')   // 꽉채운 칸
-							userAns.replace(j*ySize+i, j*ySize+i+1, "0");
-						else if(st.charAt(j*ySize+i) == '0')   // X자 칸
-							userAns.replace(j*ySize+i, j*ySize+i+1, "2");
-						st = userAns.toString();
-		// 정답체크 =======================================================
-						if(st.equals(Manager_gameBoard.gmanager.gameboard))
-							gameOver=true;
-						
-						
-					}
-			 }	
+				 }	
+			 }
+			 if(SwingUtilities.isRightMouseButton(e)){
+			        //my code
+				 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
+						if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
+							
+							if(st.charAt(j*ySize+i) == '2')      // 빈칸
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");				
+							else if(st.charAt(j*ySize+i) == '1')   // 꽉채운 칸
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // X자 칸
+								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+							st = userAns.toString();
+			// 정답체크 =======================================================
+							if(st.equals(Manager_gameBoard.gmanager.gameboard))
+								gameOver=true;
+							
+							
+						}
+				 }	
 		    }
+		}
 		
 	}
 

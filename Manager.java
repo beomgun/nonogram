@@ -8,20 +8,16 @@ public class Manager {
 	public int level;
 	public int clientWidth;
 	public int clientHeight;
-	
 	public int xSize;            // x축 박스 갯수 (길이)
 	public int ySize;            // y축 박스 개수 (길이)
-	
-	String rank_name[] = new String[3];     //랭킹담는통
-	int rank_time[] = new int[3];            // 분*60 + 초 = time     
-	
+
+	public Manager_ranking rk = new Manager_ranking();
 	
 	
 	public Manager() {
-		System.out.println(rank_time[1]);
-		new Manager_gameBoard();
 		manager=this;
 		// TODO Auto-generated method stub
+		new Manager_gameBoard();
 		level = 2;
 		clientWidth = 700;
 		clientHeight = 700;
