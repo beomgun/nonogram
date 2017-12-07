@@ -8,7 +8,7 @@ public class Manager_ranking {
 	int rank_time[][] = new int[3][3];            // 분*60 + 초 = time     
 	
 	String line;
-	String fname = "ranking.java";
+	String fname = "src/game/rankingSave.java";
 	
 	public Manager_ranking()  {
 		for(int i=0; i<3; i++) {   // 난이도
@@ -25,6 +25,21 @@ public class Manager_ranking {
 			FileInputStream fis = new FileInputStream(fname);
 			InputStreamReader isr = new InputStreamReader(fis);
 			BufferedReader br= new BufferedReader(isr);
+			
+			for(int i=0; i<3; i++) {
+				for (int j=0; j<3; j++) {
+					if((line = br.readLine()) != null) {
+						
+						rank_time[i][j] = Integer.parseInt(line);
+						line = br.readLine();
+						if(rank_time[i][j] != 99999999)
+							rank_name[i][j] = line;
+					}
+				}
+			}
+		
+			
+			
 			
 			while ((line = br.readLine()) != null) {
 				System.out.println(line);

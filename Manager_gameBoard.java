@@ -210,7 +210,7 @@ public class Manager_gameBoard {
 	}
 	
 	public void selectBoard(int level) {  // 레벨을 받아서 랜덤으로 game board 세팅.
-		int n = (int) (Math.random() * 2) + 1;   // 1~3 사이의 랜덤 숫자 구하기 (보드선택용)   .. 난이도별로 3개씩만구현예정   테스트용으로 현재 easy 2개만구현.
+		int n = (int) (Math.random() * 3) + 1;   // 1~3 사이의 랜덤 숫자 구하기 (보드선택용)   .. 난이도별로 3개씩만구현예정   테스트용으로 현재 easy 2개만구현.
 	    
 //		if(level==1)
 //			gameboard = test_easy;

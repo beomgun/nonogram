@@ -81,7 +81,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
-				userAns.append("2");
+				userAns.append("0");
 				st = userAns.toString();
 			}
 		}
@@ -193,14 +193,14 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 					lab_time.setVisible(false);
 					btn_play_pause.setVisible(false);
 
-					label_endTime.setBounds(300,30,200,200);
+					label_endTime.setBounds(280,30,220,200);
 					label_endRank.setBounds(300,150,200,200);
 					
-					label_endRank.setFont(new Font("ÈÞ¸ÕÆíÁöÃ¼",Font.BOLD,60));
+					label_endRank.setFont(new Font("ÈÞ¸ÕÆíÁöÃ¼",Font.BOLD,50));
 					label_endRank.setForeground(new Color(68, 103, 151));
 					label_endRank.setHorizontalAlignment(SwingConstants.RIGHT);
 					label_endRank.setText(rank+1 + "µî");
-					label_endTime.setFont(new Font("ÈÞ¸ÕÆíÁöÃ¼",Font.BOLD,60));
+					label_endTime.setFont(new Font("ÈÞ¸ÕÆíÁöÃ¼",Font.BOLD,50));
 					label_endTime.setForeground(new Color(68, 103, 151));
 					label_endTime.setHorizontalAlignment(SwingConstants.RIGHT);
 					if(endTime/60==0)

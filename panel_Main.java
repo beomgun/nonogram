@@ -2,6 +2,9 @@ package game;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -94,6 +97,18 @@ public class panel_Main extends JPanel implements ActionListener{
 		String strCmd = e.getActionCommand(); // 클릭된 버튼의 이름을 저장
 		
 		if (strCmd.equals("종료")) {
+			
+			try {
+				FileWriter fw = new FileWriter("src/game/rankingSave.java");
+				for(int i=0; i<3; i++) {
+					for(int j=0; j<3; j++) {
+						fw.write(Manager.manager.rk.rank_time[i][j]+"\n");
+						fw.write(Manager.manager.rk.rank_name[i][j]+"\n");
+					}
+				}
+				fw.close();
+			}	catch(FileNotFoundException e1) {	}	
+				catch(IOException e2) {	}
 			System.exit(0);
 		}
 		else if(strCmd.equals("랭킹 보기")) {
