@@ -13,6 +13,7 @@
 * 랭킹 등록
  > * 난이도 별로 3등 이내 진입시 랭킹 등록 가능.
  > * 랭킹 등록시 글자수 5개 제한.
+ > * 종료시 랭킹이 rankingSace.java로 저장되어 다음실행시 읽어서 랭킹을 받아올 수 있음
 ## 구성
 * Manager
  > * Manager.java  (Main)    - default setting
@@ -32,7 +33,3 @@
 * Manager.java 실행시 default 세팅후 Frame.java 실행
 * Frame.java에 Panel들과, Menubar를 add , 최초 panel_Main 보여줌
 * 게임으로 이동시 이전게임 초기화를 위해 이동할때마다 기존 panel_game을 remove하고 재생성후 다시 add시킴
-
-### 해야할 것
-* 랭킹패널에 기록 뜨게 만들기
-* 버튼이미지 안넣은것들 
