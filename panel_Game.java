@@ -215,7 +215,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 				go_end();            // 등수 못들어가면 기록된시간과 못들어간다고 말해주고 main, ranking 화면으로 이동 버튼 활성화
 				offG.setColor(Color.red);
 				offG.setFont(new Font("휴먼편지체",Font.BOLD,25));
-				offG.drawString("랭킹 진입실패!", 40, 170);
+				offG.drawString("랭킹 진입실패!", 30, 170);
 			}
 		}
 		else {                              // 게임이 끝나면 멈춰야할것들.(끝나기 전에만 돌아가야하는 것들)
@@ -403,7 +403,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	public void createPausePanel() {
 
 		pauseBg.setBounds(0, 0, PauseBoxWidth, PauseBoxHeight);   // pausePanel 의 배경이미지
-		pauseBg.setIcon(new ImageIcon("정지화면.png"));
+		pauseBg.setIcon(new ImageIcon("image/정지화면.png"));
 				
 		pPause.setLayout(null);
 		pPause.setSize(PauseBoxWidth,PauseBoxHeight);
@@ -414,7 +414,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	public void createEndPanel() {
 
 		endBg.setBounds(0, 0, PauseBoxWidth, PauseBoxHeight);   // endPanel 의 배경이미지
-		endBg.setIcon(new ImageIcon("끝남화면.png"));
+		endBg.setIcon(new ImageIcon("image/끝남화면.png"));
 		
 		pEnd.setLayout(null);
 		pEnd.setBounds((size_clientWidth-PauseBoxWidth)/2, (size_clientHeight-PauseBoxHeight)/2, PauseBoxWidth, PauseBoxHeight);
@@ -554,18 +554,18 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 	void buttonSetting() {
 		// pause 화면 세팅 =======================================
-		btn_pause_main.setIcon(new ImageIcon("퍼즈에서 메인.png"));
+		btn_pause_main.setIcon(new ImageIcon("image/퍼즈에서 메인.png"));
 		btn_pause_main.setMargin(m);
 		btn_pause_main.addMouseListener(btnListener);
 		btn_pause_main.setBorderPainted(false);
-		btn_pause_back.setIcon(new ImageIcon("퍼즈에서 뒤로.png"));
+		btn_pause_back.setIcon(new ImageIcon("image/퍼즈에서 뒤로.png"));
 		btn_pause_back.setMargin(m);
 		btn_pause_back.addMouseListener(btnListener);
 		btn_pause_back.setBorderPainted(false);
 		// =====================================================
 		
 		// play 화면 세팅 =========================================
-		btn_play_pause.setIcon(new ImageIcon("pause.png"));
+		btn_play_pause.setIcon(new ImageIcon("image/pause.png"));
 		btn_play_pause.setMargin(m);
 		btn_play_pause.addMouseListener(btnListener);
 		btn_play_pause.setBorderPainted(false);
@@ -573,17 +573,17 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		// end 화면 세팅 ==========================================
 		
-		btn_end_goMain.setIcon(new ImageIcon("끝날때 메인.png"));
+		btn_end_goMain.setIcon(new ImageIcon("image/끝날때 메인.png"));
 		btn_end_goMain.setMargin(m);
 		btn_end_goMain.addMouseListener(btnListener);
 		btn_end_goMain.setBorderPainted(false);
 		
-		btn_end_goRank.setIcon(new ImageIcon("랭킹보기_끝남화면.png"));
+		btn_end_goRank.setIcon(new ImageIcon("image/랭킹보기_끝남화면.png"));
 		btn_end_goRank.setMargin(m);
 		btn_end_goRank.addMouseListener(btnListener);
 		btn_end_goRank.setBorderPainted(false);
 		
-//		btn_end_regist.setIcon(new ImageIcon("pause.png"));      // 랭킹등록버튼
+//		btn_end_regist.setIcon(new ImageIcon("image/pause.png"));      // 랭킹등록버튼
 //		btn_end_regist.setMargin(m);
 //		btn_end_regist.addMouseListener(btnListener);
 //		btn_end_regist.setBorderPainted(false);

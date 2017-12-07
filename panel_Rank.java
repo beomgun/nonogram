@@ -48,7 +48,7 @@ public class panel_Rank extends JPanel implements ActionListener {
 		setBackground(Color.WHITE);
 		
 
-		btn_Rank_Back.setIcon(new ImageIcon("rankBack.png"));
+		btn_Rank_Back.setIcon(new ImageIcon("image/rankBack.png"));
 		btn_Rank_Back.setMargin(m);
 		btn_Rank_Back.setBorderPainted(false);
 		btn_Rank_Back.addMouseListener(btnListener);
@@ -128,11 +128,11 @@ public class panel_Rank extends JPanel implements ActionListener {
 		// 패널 배경화면 생성===================================================
 
 		rank_easyBg.setBounds(0, 0, 566, 550);   // pausePanel 의 배경이미지
-		rank_easyBg.setIcon(new ImageIcon("Rank_easy.png"));
+		rank_easyBg.setIcon(new ImageIcon("image/Rank_easy.png"));
 		rank_normalBg.setBounds(0, 0, 566, 550);   // pausePanel 의 배경이미지
-		rank_normalBg.setIcon(new ImageIcon("Rank_normal.png"));
+		rank_normalBg.setIcon(new ImageIcon("image/Rank_normal.png"));
 		rank_hardBg.setBounds(0, 0, 566, 550);   // pausePanel 의 배경이미지
-		rank_hardBg.setIcon(new ImageIcon("Rank_hard.png"));
+		rank_hardBg.setIcon(new ImageIcon("image/Rank_hard.png"));
 		
 	}
 	

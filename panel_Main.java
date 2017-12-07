@@ -12,18 +12,18 @@ public class panel_Main extends JPanel implements ActionListener{
 	public static panel_Main main;
 	Frame fr;
 	
-	ImageIcon imgIco = new ImageIcon("ë°°ê²½.png","ì‚¬ì§„");
+	ImageIcon imgIco = new ImageIcon("image/¹è°æ.png","»çÁø");
 	Image img = imgIco.getImage();
 
-	Listener_btnChange btnListener = new Listener_btnChange();   // ë²„íŠ¼ì— ë§ˆìš°ìŠ¤ì˜¬ë ¸ì„ë•Œ ë°”ë€Œê²Œí•˜ëŠ” ë¦¬ìŠ¤ë„ˆ
+	Listener_btnChange btnListener = new Listener_btnChange();   // ¹öÆ°¿¡ ¸¶¿ì½º¿Ã·ÈÀ»¶§ ¹Ù²î°ÔÇÏ´Â ¸®½º³Ê
 	Insets m = new Insets(0, 14, 0, 0);
 	
 	
 	
 	
-	JButton btn_main_Start = new JButton("ê²Œì„ ì‹œì‘");
-	JButton btn_main_Rank = new JButton("ë­í‚¹ ë³´ê¸°");
-	JButton btn_main_Exit = new JButton("ì¢…ë£Œ");
+	JButton btn_main_Start = new JButton("°ÔÀÓ ½ÃÀÛ");
+	JButton btn_main_Rank = new JButton("·©Å· º¸±â");
+	JButton btn_main_Exit = new JButton("Á¾·á");
 	
 	int size_main_btn_x = 100;
 	int size_main_btn_y = 80;
@@ -36,15 +36,15 @@ public class panel_Main extends JPanel implements ActionListener{
 		this.fr = fr;
 		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
 		setBackground(Color.WHITE);
-		btn_main_Start.setIcon(new ImageIcon("ê²Œì„ì‹œì‘.png"));
+		btn_main_Start.setIcon(new ImageIcon("image/°ÔÀÓ½ÃÀÛ.png"));
 		btn_main_Start.setMargin(m);
 		btn_main_Start.setBorderPainted(false);
 		btn_main_Start.addMouseListener(btnListener);
-		btn_main_Rank.setIcon(new ImageIcon("ë­í‚¹ë³´ê¸°.png"));
+		btn_main_Rank.setIcon(new ImageIcon("image/·©Å·º¸±â.png"));
 		btn_main_Rank.setMargin(m);
 		btn_main_Rank.addMouseListener(btnListener);
 		btn_main_Rank.setBorderPainted(false);
-		btn_main_Exit.setIcon(new ImageIcon("ê²Œì„ì¢…ë£Œ.png"));
+		btn_main_Exit.setIcon(new ImageIcon("image/°ÔÀÓÁ¾·á.png"));
 		btn_main_Exit.setMargin(m);
 		btn_main_Exit.addMouseListener(btnListener);
 		btn_main_Exit.setBorderPainted(false);
@@ -58,7 +58,7 @@ public class panel_Main extends JPanel implements ActionListener{
 	
 	
 
-	public void paintComponent (Graphics g) { //gëŠ” ì›ë˜ ìˆëŠ” ê°ì²´
+	public void paintComponent (Graphics g) { //g´Â ¿ø·¡ ÀÖ´Â °´Ã¼
 		setBounds(0, 0, Manager.manager.clientWidth, Manager.manager.clientHeight);
 		g.drawImage(img, 0, 0, Manager.manager.clientWidth ,Manager.manager.clientHeight, this);
 		makeButtonAndEventHandle();
@@ -91,15 +91,15 @@ public class panel_Main extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String strCmd = e.getActionCommand(); // í´ë¦­ëœ ë²„íŠ¼ì˜ ì´ë¦„ì„ ì €ì¥
+		String strCmd = e.getActionCommand(); // Å¬¸¯µÈ ¹öÆ°ÀÇ ÀÌ¸§À» ÀúÀå
 		
-		if (strCmd.equals("ì¢…ë£Œ")) {
+		if (strCmd.equals("Á¾·á")) {
 			System.exit(0);
 		}
-		else if(strCmd.equals("ë­í‚¹ ë³´ê¸°")) {
+		else if(strCmd.equals("·©Å· º¸±â")) {
 			go_rank();
 		}
-		else if (strCmd.equals("ê²Œì„ ì‹œì‘")) {
+		else if (strCmd.equals("°ÔÀÓ ½ÃÀÛ")) {
 			go_game();
 		}
 	}
