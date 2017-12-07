@@ -65,7 +65,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	Graphics offG;  
 
 	Listener_btnChange btnListener = new Listener_btnChange();   // 버튼에 마우스올렸을때 바뀌게하는 리스너
-	Insets m = new Insets(0, 14, 0, 0);
+	Insets m = new Insets(0, 13, 0, 0);
 	
 	
 	
@@ -81,7 +81,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
-				userAns.append("0");
+				userAns.append("2");
 				st = userAns.toString();
 			}
 		}

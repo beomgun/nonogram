@@ -177,20 +177,20 @@ public class panel_Rank extends JPanel implements ActionListener {
 	public void createRankLabel() {
 		label_name_1.setFont(new Font("휴먼편지체",Font.BOLD,30));
 		label_name_1.setForeground(new Color(157,27,91));
-		label_name_1.setBounds(250, 300, 100, 100);
+		label_name_1.setBounds(215, 300, 170, 100);
 		label_name_1.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label_name_1);
 		
 
 		label_name_2.setFont(new Font("휴먼편지체",Font.BOLD,30));
 		label_name_2.setForeground(new Color(157,27,91));
-		label_name_2.setBounds(250, 367, 100, 100);
+		label_name_2.setBounds(215, 367, 170, 100);
 		label_name_2.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label_name_2);
 
 		label_name_3.setFont(new Font("휴먼편지체",Font.BOLD,30));
 		label_name_3.setForeground(new Color(157,27,91));
-		label_name_3.setBounds(250, 434, 100, 100);
+		label_name_3.setBounds(215, 434, 170, 100);
 		label_name_3.setHorizontalAlignment(SwingConstants.CENTER);
 		add(label_name_3);
 
