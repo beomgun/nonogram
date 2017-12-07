@@ -60,6 +60,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	
 	int mousePos_X, mousePos_Y;
+	int startI,startJ;
 	
 	Image offScr;
 	Graphics offG;  
@@ -67,8 +68,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	Listener_btnChange btnListener = new Listener_btnChange();   // ¹öÆ°¿¡ ¸¶¿ì½º¿Ã·ÈÀ»¶§ ¹Ù²î°ÔÇÏ´Â ¸®½º³Ê
 	Insets m = new Insets(0, 13, 0, 0);
 	
-	
-	
+	boolean mouseDrag=false;
 	
 	
 	public panel_Game(Frame fr) {
@@ -185,6 +185,17 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			if(endCnt==false) {
 				endTime = (int)timeChk;                  // endTimeÀ» ±â·ÏÀ¸·Î ÀúÀåÇÏ¸é µÊ.
 				rank= Manager.manager.rk.rank_check(Manager.manager.level, endTime);  // ·©Å·Ã¼Å©
+				removeMouseListener(this);
+				removeMouseMotionListener(this);
+				
+				tf_end_name.addKeyListener(new KeyAdapter() {        // ·©Å·¿¡ ³ÖÀ» ±ÛÀÚ¼ö Á¦ÇÑ
+					   public void keyTyped(KeyEvent ke) {
+					    JTextField src = (JTextField)ke.getSource();
+					    if(src.getText().length()>=5) 
+					    	ke.consume();
+					   }
+					  });
+				
 				endCnt=true;
 			}
 			
@@ -447,12 +458,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		// END //=======================================================
 		tf_end_name.setForeground(new Color(55, 83, 141));
 		tf_end_name.setBounds(90, 400, 300, 70);
-		tf_end_name.addKeyListener(new KeyAdapter() {        // ·©Å·¿¡ ³ÖÀ» ±ÛÀÚ¼ö Á¦ÇÑ
-			   public void keyTyped(KeyEvent ke) {
-			    JTextField src = (JTextField) ke.getSource();
-			    if(src.getText().length()>=5) ke.consume();
-			   }
-			  });
+		
 		tf_end_name.setFont(new Font("ÈÞ¸ÕÆíÁöÃ¼",Font.BOLD,56));
 		btn_end_regist.setBounds(425, 400, 70, 70);
 		
@@ -600,7 +606,9 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+
+	}
 
 
 	@Override
@@ -613,9 +621,14 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+
 		mousePos_X = e.getX();
 		mousePos_Y = e.getY();
+		startI = (mousePos_X-board_start_x)/xboxSize;
+		startJ = (mousePos_Y-board_start_y)/yboxSize;
+		
+
+
 		st = userAns.toString();
 		
 		if(gameOver==false) {
@@ -623,7 +636,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			int j = (mousePos_Y-board_start_y)/yboxSize;
 			 if(SwingUtilities.isLeftMouseButton(e)){
 			        //my code
-				 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
+				 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize-1) {
 						if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
 							
 							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
@@ -635,6 +648,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 							st = userAns.toString();
 			// Á¤´äÃ¼Å© =======================================================
 							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
 								gameOver=true;
 							}
 							
@@ -644,7 +658,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			 }
 			 if(SwingUtilities.isRightMouseButton(e)){
 			        //my code
-				 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
+				 if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize-1) {
 						if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
 							
 							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
@@ -655,8 +669,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 							st = userAns.toString();
 			// Á¤´äÃ¼Å© =======================================================
-							if(st.equals(Manager.manager.gb.gameboard))
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
 								gameOver=true;
+							}
 							
 							
 						}
@@ -674,8 +690,192 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged(MouseEvent e1) {
+		if(gameOver==false) {
+			
+			mousePos_X = e1.getX();
+			mousePos_Y = e1.getY();
+			
+			st = userAns.toString();
+			
+			if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize-1) {
+				if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize-1) {
+					mouseMoved = true;
+				}
+				else {
+					mouseMoved = false;
+					}
+			}	
+			else
+				mouseMoved = false;
+			
+			int i = (mousePos_X-board_start_x)/xboxSize;
+			int j = (mousePos_Y-board_start_y)/yboxSize;
+
+			if(mouseMoved==true) {
+				
+				if(SwingUtilities.isLeftMouseButton(e1)){
+					if(startI>i) {
+						startI--;
+								
+						if(startJ==j) {
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+					}
+							
+					else if(startI<i) {
+						startI++;
+						if(startJ==j) {
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+					}
+					else if(startI==i) {
+						if(startJ>j) {
+							startJ--;
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+						else if(startJ<j) {
+							startJ++;
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "1");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+						else if(startJ==j) {
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}	
+					}
+				}
+			 
+				else if(SwingUtilities.isRightMouseButton(e1)){
+							
+					if(startI>i) {
+						startI--;
+						
+						if(startJ==j) {
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+					}
+						
+					else if(startI<i) {
+						startI++;
+						if(startJ==j) {
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+					}
+					else if(startI==i) {
+						if(startJ>j) {
+							startJ--;
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+						else if(startJ<j) {
+							startJ++;
+							if(st.charAt(j*ySize+i) == '2')      // ºóÄ­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");				
+							else if(st.charAt(j*ySize+i) == '1')   // ²ËÃ¤¿î Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							else if(st.charAt(j*ySize+i) == '0')   // XÀÚ Ä­
+								userAns.replace(j*ySize+i, j*ySize+i+1, "0");
+							st = userAns.toString();
+							// Á¤´äÃ¼Å© =======================================================
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+						else if(startJ==j) {
+							if(st.equals(Manager.manager.gb.gameboard)) {
+								mouseMoved=false;
+								gameOver=true;
+							}
+						}
+					}
+				}
+			}	
+					
+		}
 	}
+	
+	
+	
+	
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -683,8 +883,8 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		mousePos_Y = e.getY();
 		
 		
-		if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize) {
-			if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize) {
+		if (mousePos_X >= board_start_x && mousePos_X <= board_start_x +xSize*xboxSize-1) {
+			if (mousePos_Y>= board_start_y && mousePos_Y <= board_start_y + ySize*yboxSize-1) {
 				mouseMoved = true;
 			}
 			else {
