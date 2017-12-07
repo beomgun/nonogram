@@ -20,7 +20,6 @@ public class Frame extends JFrame {
 		setTitle("네모네모로직!");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(Manager.manager.clientWidth,Manager.manager.clientWidth);
-		
 
 		mb = new menuBar();   // 메뉴바 설정 (난이도)
 		setJMenuBar(mb); 
@@ -77,21 +76,21 @@ public class Frame extends JFrame {
 	}
 	
 	
-	public void goMain() {
-		panel_main.setVisible(true);
-		panel_game.setVisible(false);
-		mb.setVisible(true);
-	}
-	
 	public void goRank() {
 		panel_main.setVisible(false);
 		panel_rank.setVisible(true);    //  나중에 이걸 추가해야지!
 	}
+
 	
+	public void goMain() {
+		panel_game.setVisible(false);
+		panel_main.setVisible(true);
+		mb.setVisible(true);
+	}
 
 	public void goRMain() {      //랭킹에서 메인가는 버튼
-		panel_main.setVisible(true);
-		panel_rank.setVisible(false);   
+		panel_rank.setVisible(false); 
+		panel_main.setVisible(true);  
 		
 	}
 	

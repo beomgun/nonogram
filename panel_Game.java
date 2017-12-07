@@ -73,15 +73,15 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	
 	public panel_Game(Frame fr) {
 		this.fr = fr;
-		Manager_gameBoard.gmanager.selectBoard(Manager.manager.level);
+		Manager.manager.gb.selectBoard(Manager.manager.level);
 		startTime = System.currentTimeMillis(); 
 		xSize=Manager.manager.xSize;
 		ySize = Manager.manager.ySize;
-		ans = Manager_gameBoard.gmanager.gameboard;
+		ans = Manager.manager.gb.gameboard;
 		
 		for(int i=0; i<ySize;i++) {
 			for(int j=0; j<xSize; j++) {
-				userAns.append("0");
+				userAns.append("2");
 				st = userAns.toString();
 			}
 		}
@@ -445,8 +445,8 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		
 		
 		// END //=======================================================
-		
-		tf_end_name.setBounds(85, 400, 300, 70);
+		tf_end_name.setForeground(new Color(55, 83, 141));
+		tf_end_name.setBounds(90, 400, 300, 70);
 		tf_end_name.addKeyListener(new KeyAdapter() {        // 랭킹에 넣을 글자수 제한
 			   public void keyTyped(KeyEvent ke) {
 			    JTextField src = (JTextField) ke.getSource();
@@ -454,7 +454,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			   }
 			  });
 		tf_end_name.setFont(new Font("휴먼편지체",Font.BOLD,56));
-		btn_end_regist.setBounds(420, 400, 90, 70);
+		btn_end_regist.setBounds(425, 400, 70, 70);
 		
 		btn_end_goRank.setBounds(250,50, 145, 59);
 		btn_end_goMain.setBounds(450, 50, 145, 59);
@@ -504,10 +504,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			String name = "";
 			if(nameCnt==false) {
 				name = tf_end_name.getText();
-				System.out.println(name);
+				Manager.manager.rk.rank_update(Manager.manager.level, rank, name, endTime);  // 등록하면서 name을 받아야함
+				panel_Rank.RankManager.regist(Manager.manager.level);
 				nameCnt=true;
 			}
-			Manager.manager.rk.rank_update(Manager.manager.level, rank, name, endTime);  // 등록하면서 name을 받아야함
 			// 등록끝내면 다시 판 보여주고 어디로갈건지 정해야지!
 			lab_time.setVisible(true);
 			btn_end_goMain.setVisible(true);
@@ -583,10 +583,10 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		btn_end_goRank.addMouseListener(btnListener);
 		btn_end_goRank.setBorderPainted(false);
 		
-//		btn_end_regist.setIcon(new ImageIcon("image/pause.png"));      // 랭킹등록버튼
-//		btn_end_regist.setMargin(m);
-//		btn_end_regist.addMouseListener(btnListener);
-//		btn_end_regist.setBorderPainted(false);
+		btn_end_regist.setIcon(new ImageIcon("image/등록.png"));      // 랭킹등록버튼
+		btn_end_regist.setMargin(m);
+		btn_end_regist.addMouseListener(btnListener);
+		btn_end_regist.setBorderPainted(false);
 		
 		// =====================================================
 		
@@ -634,7 +634,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 							st = userAns.toString();
 			// 정답체크 =======================================================
-							if(st.equals(Manager_gameBoard.gmanager.gameboard)) {
+							if(st.equals(Manager.manager.gb.gameboard)) {
 								gameOver=true;
 							}
 							
@@ -655,7 +655,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 								userAns.replace(j*ySize+i, j*ySize+i+1, "2");
 							st = userAns.toString();
 			// 정답체크 =======================================================
-							if(st.equals(Manager_gameBoard.gmanager.gameboard))
+							if(st.equals(Manager.manager.gb.gameboard))
 								gameOver=true;
 							
 							

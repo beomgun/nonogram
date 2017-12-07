@@ -1,15 +1,44 @@
 package game;
 
+import java.io.*;
+
 public class Manager_ranking {
 
 	String rank_name[][] = new String[3][3];     //랭킹담는통   [난이도][순위]
 	int rank_time[][] = new int[3][3];            // 분*60 + 초 = time     
 	
+	String line;
+	String fname = "ranking.java";
 	
-	public Manager_ranking() {
-		rank_time[1][0] = 1;
-		rank_time[1][1] = 1;
-		rank_time[1][2] = 3;
+	public Manager_ranking()  {
+		for(int i=0; i<3; i++) {   // 난이도
+			for(int j=0; j<3; j++) {  //등수
+				rank_time[i][j] = 99999999;
+				if(rank_time[i][j] == 99999999) {
+					rank_name[i][j] = "-";
+				}
+			}
+		}
+		
+		// 저장파일 없으면.
+		try {
+			FileInputStream fis = new FileInputStream(fname);
+			InputStreamReader isr = new InputStreamReader(fis);
+			BufferedReader br= new BufferedReader(isr);
+			
+			while ((line = br.readLine()) != null) {
+				System.out.println(line);
+			}
+			br.close();
+			isr.close();
+			fis.close();
+		
+		} 	catch (FileNotFoundException e) {} 
+			catch(IOException e) {}
+		
+		
+		
+		
 	}
 	
 	

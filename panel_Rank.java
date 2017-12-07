@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,17 @@ public class panel_Rank extends JPanel implements ActionListener {
 	private JPanel panel_normal = new JPanel();
 	private JPanel panel_hard = new JPanel();
 	
-//	private JLabel label_rank, label_name, label_time;
+	
+	
+	private JLabel label_name_1 = new JLabel("NAME");
+	private JLabel label_name_2 = new JLabel("NAME");
+	private JLabel label_name_3 = new JLabel("NAME");
+	
+	private JLabel label_time_1 = new JLabel("TIME");
+	private JLabel label_time_2 = new JLabel("TIME");
+	private JLabel label_time_3 = new JLabel("TIME");
+	
+	
 	
 	
 	int size_clientWidth=700, size_clientHeight=700;
@@ -31,6 +42,12 @@ public class panel_Rank extends JPanel implements ActionListener {
 	JLabel rank_easyBg = new JLabel();   // 난이도에 따른 랭킹 배경화면
 	JLabel rank_normalBg = new JLabel();  
 	JLabel rank_hardBg = new JLabel(); 
+	
+	
+	boolean setting = true;
+	
+	
+	
 	
 	
 	public panel_Rank(Frame fr) {
@@ -54,13 +71,13 @@ public class panel_Rank extends JPanel implements ActionListener {
 		btn_Rank_Back.addMouseListener(btnListener);
 		
 		
-		
-		
+
+		setLabel_normal();
 		
 		
 		
 		setLayout(null);
-//		createRankLabel();
+		createRankLabel();
 		makeButtonAndEventHandle();
 		createRankPanel();
 		
@@ -69,9 +86,19 @@ public class panel_Rank extends JPanel implements ActionListener {
 		panel_hard.add(rank_hardBg);
 	
 		add(btn_Rank_Back);
+		
+		add(label_name_1);
+		add(label_name_2);
+		add(label_name_3);
+
+		add(label_time_1);
+		add(label_time_2);
+		add(label_time_3);
+		
 		add(panel_easy);  
 		add(panel_normal);
 		add(panel_hard);
+		
 		
 		btn_Rank_Back.setVisible(true);
 		
@@ -80,6 +107,7 @@ public class panel_Rank extends JPanel implements ActionListener {
 		panel_normal.setVisible(true);
 		panel_hard.setVisible(false);
 	}
+	
 	
 	
 	
@@ -98,7 +126,6 @@ public class panel_Rank extends JPanel implements ActionListener {
 	public void paintComponents(Graphics arg0) {
 		// TODO Auto-generated method stub
 		super.paintComponents(arg0);
-		
 		
 		
 	}
@@ -141,26 +168,53 @@ public class panel_Rank extends JPanel implements ActionListener {
 	public void makeButtonAndEventHandle() {
 		
 		btn_Rank_Back.setSize(140,100 );
-		btn_Rank_Back.setLocation(470,60);
+		btn_Rank_Back.setLocation(460,75);
 		btn_Rank_Back.addActionListener(this);
 		
 		
 	}
 
-	// 이걺만들자 
-//	public void createRankLabel() {
-//		label_rank = new JLabel("RANK");
-//		label_rank.setBounds(150, 160, 100, 100);
-//		add(label_rank);
-//		label_name = new JLabel("NAME"); 
-//		label_name.setBounds(250, 160, 100, 100);
-//		add(label_name);
-//		
-//		label_time = new JLabel("TIME");
-//		label_time.setBounds(350, 160, 100, 100);
-//		add(label_time);
-//		
-//	}
+	public void createRankLabel() {
+		label_name_1.setFont(new Font("휴먼편지체",Font.BOLD,30));
+		label_name_1.setForeground(new Color(157,27,91));
+		label_name_1.setBounds(250, 300, 100, 100);
+		label_name_1.setHorizontalAlignment(SwingConstants.CENTER);
+		add(label_name_1);
+		
+
+		label_name_2.setFont(new Font("휴먼편지체",Font.BOLD,30));
+		label_name_2.setForeground(new Color(157,27,91));
+		label_name_2.setBounds(250, 367, 100, 100);
+		label_name_2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(label_name_2);
+
+		label_name_3.setFont(new Font("휴먼편지체",Font.BOLD,30));
+		label_name_3.setForeground(new Color(157,27,91));
+		label_name_3.setBounds(250, 434, 100, 100);
+		label_name_3.setHorizontalAlignment(SwingConstants.CENTER);
+		add(label_name_3);
+
+		
+		
+		label_time_1.setFont(new Font("휴먼편지체",Font.BOLD,30));
+		label_time_1.setForeground(new Color(157,27,91));
+		label_time_1.setBounds(390, 300, 150, 100);
+		label_time_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(label_time_1);
+
+		label_time_2.setFont(new Font("휴먼편지체",Font.BOLD,30));
+		label_time_2.setForeground(new Color(157,27,91));
+		label_time_2.setBounds(390, 367, 150, 100);
+		label_time_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(label_time_2);
+
+		label_time_3.setFont(new Font("휴먼편지체",Font.BOLD,30));
+		label_time_3.setForeground(new Color(157,27,91));
+		label_time_3.setBounds(390, 434, 150, 100);
+		label_time_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(label_time_3);
+		
+	}
 	
 	
 	
@@ -171,24 +225,136 @@ public class panel_Rank extends JPanel implements ActionListener {
 		panel_easy.setVisible(true);
 		panel_normal.setVisible(false);
 		panel_hard.setVisible(false);
+		setLabel_easy();
+		
 	}
 
 	public void ChNormal() {
 		panel_easy.setVisible(false);
 		panel_normal.setVisible(true);
 		panel_hard.setVisible(false);
+
+		setLabel_normal();
 	}
 
 	public void ChHard() {
 		panel_easy.setVisible(false);
 		panel_normal.setVisible(false);
 		panel_hard.setVisible(true);
+		
+		setLabel_hard();
 	}
 	
 	
-	public static void main(String[] args) {
 	
-	}
+	
+	
+	void setLabel_easy() {
+		label_name_1.setText(Manager.manager.rk.rank_name[0][0]);
+		label_name_2.setText(Manager.manager.rk.rank_name[0][1]);
+		label_name_3.setText(Manager.manager.rk.rank_name[0][2]);
+		
+		if(Manager.manager.rk.rank_time[0][0]/60 <1)
+			label_time_1.setText(Manager.manager.rk.rank_time[0][0]+"초");
+		else
+			label_time_1.setText(Manager.manager.rk.rank_time[0][0]/60 + "분  "+Manager.manager.rk.rank_time[0][0]%60+"초");
 
+		if(Manager.manager.rk.rank_time[0][1]/60 <1)
+			label_time_2.setText(Manager.manager.rk.rank_time[0][1]+"초");
+		else
+			label_time_2.setText(Manager.manager.rk.rank_time[0][1]/60 + "분  "+Manager.manager.rk.rank_time[0][1]%60+"초");
+		
+		if(Manager.manager.rk.rank_time[0][2]/60 <1)
+			label_time_3.setText(Manager.manager.rk.rank_time[0][2]+"초");
+		else
+			label_time_3.setText(Manager.manager.rk.rank_time[0][2]/60 + "분  "+Manager.manager.rk.rank_time[0][2]%60+"초");
+		
+
+		if(Manager.manager.rk.rank_time[0][0] == 99999999) {
+			label_time_1.setText("-    ");
+		}
+		if(Manager.manager.rk.rank_time[0][1] == 99999999) {
+			label_time_2.setText("-    ");
+		}
+		if(Manager.manager.rk.rank_time[0][2] == 99999999) {
+			label_time_3.setText("-    ");
+		}
+	}
+	void setLabel_normal() {
+		label_name_1.setText(Manager.manager.rk.rank_name[1][0]);
+		label_name_2.setText(Manager.manager.rk.rank_name[1][1]);
+		label_name_3.setText(Manager.manager.rk.rank_name[1][2]);
+		
+		if(Manager.manager.rk.rank_time[1][0]/60 <1)
+			label_time_1.setText(Manager.manager.rk.rank_time[1][0]+"초");
+		else
+			label_time_1.setText(Manager.manager.rk.rank_time[1][0]/60 + "분  "+Manager.manager.rk.rank_time[1][0]%60+"초");
+
+		if(Manager.manager.rk.rank_time[1][1]/60 <1)
+			label_time_2.setText(Manager.manager.rk.rank_time[1][1]+"초");
+		else
+			label_time_2.setText(Manager.manager.rk.rank_time[1][1]/60 + "분  "+Manager.manager.rk.rank_time[1][1]%60+"초");
+		
+		if(Manager.manager.rk.rank_time[1][2]/60 <1)
+			label_time_3.setText(Manager.manager.rk.rank_time[1][2]+"초");
+		else
+			label_time_3.setText(Manager.manager.rk.rank_time[1][2]/60 + "분  "+Manager.manager.rk.rank_time[1][2]%60+"초");
+		
+		
+		if(Manager.manager.rk.rank_time[1][0] == 99999999) {
+			label_time_1.setText("-    ");
+		}
+		if(Manager.manager.rk.rank_time[1][1] == 99999999) {
+			label_time_2.setText("-    ");
+		}
+		if(Manager.manager.rk.rank_time[1][2] == 99999999) {
+			label_time_3.setText("-    ");
+		}
+	}
+	
+	
+	void setLabel_hard() {
+		label_name_1.setText(Manager.manager.rk.rank_name[2][0]);
+		label_name_2.setText(Manager.manager.rk.rank_name[2][1]);
+		label_name_3.setText(Manager.manager.rk.rank_name[2][2]);
+		
+		if(Manager.manager.rk.rank_time[2][0]/60 <1)
+			label_time_1.setText(Manager.manager.rk.rank_time[2][0]+"초");
+		else
+			label_time_1.setText(Manager.manager.rk.rank_time[2][0]/60 + "분  "+Manager.manager.rk.rank_time[2][0]%60+"초");
+	
+		if(Manager.manager.rk.rank_time[2][1]/60 <1)
+			label_time_2.setText(Manager.manager.rk.rank_time[2][1]+"초");
+		else
+			label_time_2.setText(Manager.manager.rk.rank_time[2][1]/60 + "분  "+Manager.manager.rk.rank_time[2][1]%60+"초");
+		
+		if(Manager.manager.rk.rank_time[2][2]/60 <1)
+			label_time_3.setText(Manager.manager.rk.rank_time[2][2]+"초");
+		else
+			label_time_3.setText(Manager.manager.rk.rank_time[2][2]/60 + "분  "+Manager.manager.rk.rank_time[2][2]%60+"초");
+		
+	
+		if(Manager.manager.rk.rank_time[2][0] == 99999999) {
+			label_time_1.setText("-    ");
+		}
+		if(Manager.manager.rk.rank_time[2][1] == 99999999) {
+			label_time_2.setText("-    ");
+		}
+		if(Manager.manager.rk.rank_time[2][2] == 99999999) {
+			label_time_3.setText("-    ");
+		}
+		
+	}
+	
+	
+	void regist(int level) {
+		if (level == 1)
+			setLabel_easy();
+		else if (level ==2)
+			setLabel_normal();
+		else if (level == 3)
+			setLabel_hard();
+	}
+	
 
 }

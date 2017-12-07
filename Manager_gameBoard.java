@@ -1,24 +1,55 @@
 package game;
 
 public class Manager_gameBoard {
-	public static Manager_gameBoard gmanager;
 	
+	String test_easy = "1000000000"
+					 + "0000000000"
+					 + "0000000000"
+					 + "0000000000"
+					 + "0000000000"
+					 + "0000000000"
+					 + "0000000000"
+					 + "0000000000"
+					 + "0000000000"
+					 + "0000000000";
+			
+			
+	String test_normal =  "100000000000000"// normal
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000"
+						+ "000000000000000";
 	
-	String test =	  "100000000000000"// normal
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000"
-					+ "000000000000000";
+	String test_hard = "10000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000"
+					 + "00000000000000000000";
 	
 	String easy_1 = //리본  http://nemonemologic.com/play_logic.php?quid=4388&page=10&size=10
 			  "0000000000"
@@ -176,56 +207,59 @@ public class Manager_gameBoard {
 
 	public Manager_gameBoard() {
 		// TODO Auto-generated constructor stub
-		gmanager=this;
 	}
 	
 	public void selectBoard(int level) {  // 레벨을 받아서 랜덤으로 game board 세팅.
 		int n = (int) (Math.random() * 2) + 1;   // 1~3 사이의 랜덤 숫자 구하기 (보드선택용)   .. 난이도별로 3개씩만구현예정   테스트용으로 현재 easy 2개만구현.
 	    
+//		if(level==1)
+//			gameboard = test_easy;
+//		else if(level==2)
+//			gameboard = test_normal;
+//		else if (level==3)
+//			gameboard = test_hard;
 		
-		gameboard = test;
-		
-//		if(level==1) {
-//			switch(n) {
-//				case 1:
-//					gameboard = easy_1;
-//					break;
-//				case 2:
-//					gameboard = easy_2;
-//					break;
-//				case 3:
-//					gameboard = easy_3;
-//					break;
-//			}
-//			
-//		}
-//		else if(level==2) {
-//			switch(n) {
-//				case 1:
-//					gameboard = normal_1;
-//					break;
-//				case 2:
-//					gameboard = normal_2;
-//					break;
-//				case 3:
-//					gameboard = normal_3;
-//					break;
-//			}
-//			
-//		}
-//		else if(level==3) {
-//			switch(n) {
-//				case 1:
-//					gameboard = hard_1;
-//					break;
-//				case 2:
-//					gameboard = hard_2;
-//					break;
-//				case 3:
-//					gameboard = hard_3;
-//					break;
-//			}
-//		}
+		if(level==1) {
+			switch(n) {
+				case 1:
+					gameboard = easy_1;
+					break;
+				case 2:
+					gameboard = easy_2;
+					break;
+				case 3:
+					gameboard = easy_3;
+					break;
+			}
+			
+		}
+		else if(level==2) {
+			switch(n) {
+				case 1:
+					gameboard = normal_1;
+					break;
+				case 2:
+					gameboard = normal_2;
+					break;
+				case 3:
+					gameboard = normal_3;
+					break;
+			}
+			
+		}
+		else if(level==3) {
+			switch(n) {
+				case 1:
+					gameboard = hard_1;
+					break;
+				case 2:
+					gameboard = hard_2;
+					break;
+				case 3:
+					gameboard = hard_3;
+					break;
+			}
+		}
 		
 	}
 	

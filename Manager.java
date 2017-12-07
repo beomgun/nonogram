@@ -12,12 +12,11 @@ public class Manager {
 	public int ySize;            // y축 박스 개수 (길이)
 
 	public Manager_ranking rk = new Manager_ranking();
-	
+	public Manager_gameBoard gb = new Manager_gameBoard();
 	
 	public Manager() {
 		manager=this;
 		// TODO Auto-generated method stub
-		new Manager_gameBoard();
 		level = 2;
 		clientWidth = 700;
 		clientHeight = 700;

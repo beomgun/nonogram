@@ -12,7 +12,7 @@ public class panel_Main extends JPanel implements ActionListener{
 	public static panel_Main main;
 	Frame fr;
 	
-	ImageIcon imgIco = new ImageIcon("image/배경.png","사진");
+	ImageIcon imgIco = new ImageIcon("image/배경2.gif","사진");
 	Image img = imgIco.getImage();
 
 	Listener_btnChange btnListener = new Listener_btnChange();   // 버튼에 마우스올렸을때 바뀌게하는 리스너

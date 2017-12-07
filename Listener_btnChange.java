@@ -31,8 +31,8 @@ public class Listener_btnChange implements MouseListener {
 			btn.setIcon(new ImageIcon("image/퍼즈에서 메인1.png"));
 		
 
-//		else if(btn.getActionCommand()=="등록하기")
-//			btn.setIcon(new ImageIcon("image/.png"));
+		else if(btn.getActionCommand()=="등록하기")
+			btn.setIcon(new ImageIcon("image/등록1.png"));
 		else if(btn.getActionCommand()=="게임끝나메인이동")
 			btn.setIcon(new ImageIcon("image/끝날때 메인1.png"));
 		else if(btn.getActionCommand()=="게임끝나랭킹이동")
@@ -43,7 +43,7 @@ public class Listener_btnChange implements MouseListener {
 		// 랭킹화면버튼===================================
 
 		else if(btn.getActionCommand()=="Rank_BACK")
-			btn.setIcon(new ImageIcon("image/rankBack.png"));
+			btn.setIcon(new ImageIcon("image/rankBack1.png"));
 		
 
 		// 랭킹화면버튼===================================
@@ -73,8 +73,8 @@ public class Listener_btnChange implements MouseListener {
 			btn.setIcon(new ImageIcon("image/퍼즈에서 메인.png"));
 
 
-//		else if(btn.getActionCommand()=="등록하기")
-//			btn.setIcon(new ImageIcon("image/.png"));
+		else if(btn.getActionCommand()=="등록하기")
+			btn.setIcon(new ImageIcon("image/등록.png"));
 		else if(btn.getActionCommand()=="게임끝나메인이동")
 			btn.setIcon(new ImageIcon("image/끝날때 메인.png"));
 		else if(btn.getActionCommand()=="게임끝나랭킹이동")
