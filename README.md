@@ -1,5 +1,6 @@
-# nonogram
+# 네모네모 로직
  + Manager.java 실행시 게임시작.
+ * 자세한 내용은 wiki에! https://github.com/beomgun/nonogram/wiki
  
 ## 기능
 * 난이도 설정 기능
@@ -29,7 +30,3 @@
  > * menuBar.java
 * MouseListener
  > * Listener_btnChange.java  - 버튼위에 마우스 올릴경우 이미지 바꿔줌.
-## 요약   
-* Manager.java 실행시 default 세팅후 Frame.java 실행
-* Frame.java에 Panel들과, Menubar를 add , 최초 panel_Main 보여줌
-* 게임으로 이동시 이전게임 초기화를 위해 이동할때마다 기존 panel_game을 remove하고 재생성후 다시 add시킴
