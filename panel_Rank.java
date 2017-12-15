@@ -257,17 +257,17 @@ public class panel_Rank extends JPanel implements ActionListener {
 		if(Manager.manager.rk.rank_time[0][0]/60 <1)
 			label_time_1.setText(Manager.manager.rk.rank_time[0][0]+"초");
 		else
-			label_time_1.setText(Manager.manager.rk.rank_time[0][0]/60 + "분  "+Manager.manager.rk.rank_time[0][0]%60+"초");
+			label_time_1.setText(Manager.manager.rk.rank_time[0][0]/60 + "분 "+Manager.manager.rk.rank_time[0][0]%60+"초");
 
 		if(Manager.manager.rk.rank_time[0][1]/60 <1)
 			label_time_2.setText(Manager.manager.rk.rank_time[0][1]+"초");
 		else
-			label_time_2.setText(Manager.manager.rk.rank_time[0][1]/60 + "분  "+Manager.manager.rk.rank_time[0][1]%60+"초");
+			label_time_2.setText(Manager.manager.rk.rank_time[0][1]/60 + "분 "+Manager.manager.rk.rank_time[0][1]%60+"초");
 		
 		if(Manager.manager.rk.rank_time[0][2]/60 <1)
 			label_time_3.setText(Manager.manager.rk.rank_time[0][2]+"초");
 		else
-			label_time_3.setText(Manager.manager.rk.rank_time[0][2]/60 + "분  "+Manager.manager.rk.rank_time[0][2]%60+"초");
+			label_time_3.setText(Manager.manager.rk.rank_time[0][2]/60 + "분 "+Manager.manager.rk.rank_time[0][2]%60+"초");
 		
 
 		if(Manager.manager.rk.rank_time[0][0] == 99999999) {

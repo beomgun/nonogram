@@ -2,6 +2,9 @@ package game;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -26,6 +29,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 	int xSize=15,ySize = 15;
 	
 	private JLabel lab_time = new JLabel("00:00");
+	private JLabel lab_1stRank= new JLabel("최고기록 :   -");
 
 	int PauseBoxWidth;
 	int PauseBoxHeight;
@@ -107,7 +111,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		btn_end_goMain.setVisible(false);
 		add(btn_end_goRank);
 		btn_end_goRank.setVisible(false);
-		
+		add(lab_1stRank);
 		add(lab_time);
 		add(btn_play_pause);
 		addMouseListener(this);
@@ -202,6 +206,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			if(rank < 3) {  //랭킹체크해서 3등이내라면!
 				if(regiCnt==false) {  // 한번만 실행되게 도와주는 도구! 없으면 계속실행되서 엉킴
 					lab_time.setVisible(false);
+					lab_1stRank.setVisible(false);
 					btn_play_pause.setVisible(false);
 
 					label_endTime.setBounds(280,30,220,200);
@@ -247,6 +252,15 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 			lab_time.setForeground(new Color(68, 103, 151));
 			lab_time.setText(timeM+" : "+timeS);
 			
+			lab_1stRank.setForeground(new Color(45, 116, 0));
+			int Rank1 = Manager.manager.rk.rank_time[Manager.manager.level-1][0];
+			if (Rank1==99999999)
+				lab_1stRank.setText("최고기록 :   -");
+			else if(Rank1 >60)
+				lab_1stRank.setText("최고기록 : " + Rank1/60 +"분 " + Rank1%60+"초");
+			else 
+				lab_1stRank.setText("최고기록 : " + Rank1%60+"초");
+				
 						
 			// 판위에서 마우스 움직이면 좌표 보여줌
 			if(mouseMoved==true) {
@@ -441,6 +455,9 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		lab_time.setLocation(size_clientWidth/17, size_clientHeight/10);
 		lab_time.setFont(new Font("Tekton Pro Ext",Font.PLAIN,30));
 		
+		lab_1stRank.setBounds(size_clientWidth/17, size_clientHeight/20,size_clientWidth/3, size_clientHeight/10);
+		lab_1stRank.setFont(new Font("휴먼편지체",Font.BOLD,17));
+		
 		btn_play_pause.setSize(size_clientWidth/5-20,size_clientHeight/10 );
 		btn_play_pause.setLocation(size_clientWidth/17,(int)(size_clientHeight/4.7));
 		//===========================================================
@@ -508,14 +525,29 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		}
 		else if(strCmd.equals("등록하기")) {
 			String name = "";
-			if(nameCnt==false) {
+			if(nameCnt==false) {         // 한번만 실행하게 해주는것!
 				name = tf_end_name.getText();
 				Manager.manager.rk.rank_update(Manager.manager.level, rank, name, endTime);  // 등록하면서 name을 받아야함
 				panel_Rank.RankManager.regist(Manager.manager.level);
+				
+				try {     // 등록하면 랭킹파일 생성해 덮어씀
+					FileWriter fw = new FileWriter("src/game/rankingSave.java");
+					for(int i=0; i<3; i++) {
+						for(int j=0; j<3; j++) {
+							fw.write(Manager.manager.rk.rank_time[i][j]+"\n");
+							fw.write(Manager.manager.rk.rank_name[i][j]+"\n");
+						}
+					}
+					fw.close();
+				}	catch(FileNotFoundException e1) {	}	
+					catch(IOException e2) {	}
+				
+				
 				nameCnt=true;
 			}
 			// 등록끝내면 다시 판 보여주고 어디로갈건지 정해야지!
 			lab_time.setVisible(true);
+			lab_1stRank.setVisible(true);
 			btn_end_goMain.setVisible(true);
 			btn_end_goRank.setVisible(true);
 			pEnd.setVisible(false);
@@ -530,6 +562,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		pPause.setVisible(true);
 		btn_play_pause.setVisible(false);
 		lab_time.setVisible(false);
+		lab_1stRank.setVisible(false);
 	}
 	
 	
@@ -537,6 +570,7 @@ public class panel_Game extends JPanel implements ActionListener,MouseListener, 
 		pPause.setVisible(false);
 		btn_play_pause.setVisible(true);
 		lab_time.setVisible(true);
+		lab_1stRank.setVisible(true);
 	}
 
 	void go_main() {
