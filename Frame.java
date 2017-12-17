@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Graphics;
 import java.awt.event.*;
+import java.util.MissingFormatArgumentException;
+
 import javax.swing.*;
 
  
@@ -73,12 +75,16 @@ public class Frame extends JFrame {
 		add(panel_game);
 		panel_game.setVisible(true);
 		mb.setVisible(false);
+		
+
+		Manager.manager.mainOn=false;
 	}
 	
 	
 	public void goRank() {
 		panel_main.setVisible(false);
 		panel_rank.setVisible(true);    //  나중에 이걸 추가해야지!
+		Manager.manager.mainOn=false;
 	}
 
 	
@@ -86,11 +92,13 @@ public class Frame extends JFrame {
 		panel_game.setVisible(false);
 		panel_main.setVisible(true);
 		mb.setVisible(true);
+		Manager.manager.mainSwitch();
 	}
 
 	public void goRMain() {      //랭킹에서 메인가는 버튼
 		panel_rank.setVisible(false); 
 		panel_main.setVisible(true);  
+		Manager.manager.mainSwitch();
 		
 	}
 	
@@ -98,6 +106,7 @@ public class Frame extends JFrame {
 		panel_game.setVisible(false);
 		panel_rank.setVisible(true);    //  나중에 이걸 추가해야지!
 		mb.setVisible(true);
+		Manager.manager.mainOn=false;
 		
 	}
 	

@@ -14,6 +14,10 @@ public class Manager {
 	public Manager_ranking rk = new Manager_ranking();
 	public Manager_gameBoard gb = new Manager_gameBoard();
 	
+	public boolean mainOn = true;
+	public boolean mainStart = true;
+	public long mainOnTime = 0;
+	
 	public Manager() {
 		manager=this;
 		// TODO Auto-generated method stub
@@ -47,6 +51,10 @@ public class Manager {
 			
 	}
 	
+	public void mainSwitch() {
+		mainOn=true;
+		mainStart=true;
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
